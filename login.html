@@ -48,6 +48,13 @@
     <input type="password" placeholder="Password">
 
     <button onclick="login()">Login</button>
+
+    <!-- ✅ GUEST BUTTON -->
+    <button onclick="loginAsGuest()" style="background:#888;margin-top:8px;">
+      Continue as Guest
+    </button>
+
+    <p id="auth-msg"></p>  <!-- ✅ MOVED HERE so showMsg() always finds it -->
     <p>New user? <a href="signup.html">Sign up</a></p>
   </div>
 
