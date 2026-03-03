@@ -1,0 +1,526 @@
+[
+  {
+    "id": "quiz-1",
+    "lessonId": "lesson-1",
+    "title": "Quiz: Alphabets A-E",
+    "questions": [
+      {
+        "id": "q1",
+        "question": "Which letter does this sign represent?",
+        "image": "assets/signs/A.png",
+        "options": ["A", "B", "C", "E"],
+        "answer": "A"
+      },
+      {
+        "id": "q2",
+        "question": "Which letter does this sign represent?",
+        "image": "assets/signs/C.png",
+        "options": ["A", "B", "C", "D"],
+        "answer": "C"
+      },
+      {
+        "id": "q3",
+        "question": "How do you sign the letter B in ISL?",
+        "options": [
+          "Make a fist with thumb resting on the side.",
+          "Hold all four fingers straight up, thumb folded across palm.",
+          "Curve fingers and thumb to form the letter C.",
+          "Curl all fingers down, thumb tucked under."
+        ],
+        "answer": "Hold all four fingers straight up, thumb folded across palm."
+      },
+      {
+        "id": "q4",
+        "question": "Which letter does this sign represent?",
+        "image": "assets/signs/D.png",
+        "options": ["A", "D", "O", "C"],
+        "answer": "D"
+      },
+      {
+        "id": "q5",
+        "question": "How do you sign the letter E in ISL?",
+        "options": [
+          "Index finger points up, other fingers form a circle.",
+          "Make a fist with thumb on the side.",
+          "Curl all fingers down, thumb tucked under.",
+          "Four fingers up, thumb folded."
+        ],
+        "answer": "Curl all fingers down, thumb tucked under."
+      }
+    ]
+  },
+  {
+    "id": "quiz-2",
+    "lessonId": "lesson-2",
+    "title": "Quiz: Alphabets F-J",
+    "questions": [
+      {
+        "id": "q1",
+        "question": "Which letter does this sign represent?",
+        "image": "assets/signs/F.png",
+        "options": ["F", "G", "H", "I"],
+        "answer": "F"
+      },
+      {
+        "id": "q2",
+        "question": "How do you sign the letter G?",
+        "options": [
+          "Pinky finger raised, other fingers folded.",
+          "Index and middle finger point sideways together.",
+          "Index finger and thumb point sideways.",
+          "Touch index finger to thumb, other fingers extended."
+        ],
+        "answer": "Index finger and thumb point sideways."
+      },
+      {
+        "id": "q3",
+        "question": "Which letter does this sign represent?",
+        "image": "assets/signs/I.png",
+        "options": ["F", "G", "H", "I"],
+        "answer": "I"
+      },
+      {
+        "id": "q4",
+        "question": "How do you sign the letter J?",
+        "options": [
+          "Index finger traces a J in the air.",
+          "Pinky raised and trace a J motion.",
+          "Index and middle finger crossed.",
+          "Thumb and pinky extended."
+        ],
+        "answer": "Pinky raised and trace a J motion."
+      },
+      {
+        "id": "q5",
+        "question": "Which letter does this sign represent?",
+        "image": "assets/signs/H.png",
+        "options": ["F", "G", "H", "J"],
+        "answer": "H"
+      }
+    ]
+  },
+  {
+    "id": "quiz-3",
+    "lessonId": "lesson-3",
+    "title": "Quiz: Alphabets K-O",
+    "questions": [
+      {
+        "id": "q1",
+        "question": "How do you sign the letter L?",
+        "options": [
+          "Three fingers folded over thumb.",
+          "Index finger up, thumb out forming an L shape.",
+          "Index and middle finger up, thumb between them.",
+          "Two fingers folded over thumb."
+        ],
+        "answer": "Index finger up, thumb out forming an L shape."
+      },
+      {
+        "id": "q2",
+        "question": "Which letter does this sign represent?",
+        "image": "assets/signs/O.png",
+        "options": ["C", "M", "N", "O"],
+        "answer": "O"
+      },
+      {
+        "id": "q3",
+        "question": "How do you sign the letter M?",
+        "options": [
+          "Two fingers folded over thumb.",
+          "Three fingers folded over thumb.",
+          "Index and middle finger up, thumb between them.",
+          "All fingers and thumb curved to form O."
+        ],
+        "answer": "Three fingers folded over thumb."
+      },
+      {
+        "id": "q4",
+        "question": "Which letter does this sign represent?",
+        "image": "assets/signs/K.png",
+        "options": ["K", "L", "M", "N"],
+        "answer": "K"
+      },
+      {
+        "id": "q5",
+        "question": "How do you sign the letter N?",
+        "options": [
+          "Three fingers folded over thumb.",
+          "Two fingers folded over thumb.",
+          "Pinky finger raised.",
+          "All fingers curved to form O."
+        ],
+        "answer": "Two fingers folded over thumb."
+      }
+    ]
+  },
+  {
+    "id": "quiz-4",
+    "lessonId": "lesson-4",
+    "title": "Quiz: Alphabets P-T",
+    "questions": [
+      {
+        "id": "q1",
+        "question": "Which letter does this sign represent?",
+        "image": "assets/signs/R.png",
+        "options": ["P", "Q", "R", "S"],
+        "answer": "R"
+      },
+      {
+        "id": "q2",
+        "question": "How do you sign the letter S?",
+        "options": [
+          "Fist with thumb over fingers.",
+          "Index and thumb point down.",
+          "Thumb between index and middle finger.",
+          "Index and middle finger crossed."
+        ],
+        "answer": "Fist with thumb over fingers."
+      },
+      {
+        "id": "q3",
+        "question": "Which letter does this sign represent?",
+        "image": "assets/signs/T.png",
+        "options": ["R", "S", "T", "P"],
+        "answer": "T"
+      },
+      {
+        "id": "q4",
+        "question": "How do you sign the letter P?",
+        "options": [
+          "Index and thumb point down.",
+          "Index finger points down, middle finger out, thumb to side.",
+          "Fist with thumb over fingers.",
+          "Index and middle finger crossed."
+        ],
+        "answer": "Index finger points down, middle finger out, thumb to side."
+      },
+      {
+        "id": "q5",
+        "question": "Which letter does this sign represent?",
+        "image": "assets/signs/Q.png",
+        "options": ["P", "Q", "S", "T"],
+        "answer": "Q"
+      }
+    ]
+  },
+  {
+    "id": "quiz-5",
+    "lessonId": "lesson-5",
+    "title": "Quiz: Alphabets U-Z",
+    "questions": [
+      {
+        "id": "q1",
+        "question": "How do you sign the letter V?",
+        "options": [
+          "Index and middle fingers up together.",
+          "Index and middle fingers up, spread apart.",
+          "Three fingers up and spread.",
+          "Thumb and pinky extended."
+        ],
+        "answer": "Index and middle fingers up, spread apart."
+      },
+      {
+        "id": "q2",
+        "question": "Which letter does this sign represent?",
+        "image": "assets/signs/Y.png",
+        "options": ["U", "V", "X", "Y"],
+        "answer": "Y"
+      },
+      {
+        "id": "q3",
+        "question": "How do you sign the letter Z?",
+        "options": [
+          "Index finger bent/hooked.",
+          "Three fingers spread.",
+          "Index finger traces a Z in the air.",
+          "Thumb and pinky extended."
+        ],
+        "answer": "Index finger traces a Z in the air."
+      },
+      {
+        "id": "q4",
+        "question": "Which letter does this sign represent?",
+        "image": "assets/signs/W.png",
+        "options": ["U", "V", "W", "X"],
+        "answer": "W"
+      },
+      {
+        "id": "q5",
+        "question": "How do you sign the letter U?",
+        "options": [
+          "Index and middle fingers up together.",
+          "Index and middle fingers spread apart.",
+          "Index finger only raised.",
+          "Thumb and index finger form a U shape."
+        ],
+        "answer": "Index and middle fingers up together."
+      }
+    ]
+  },
+  {
+    "id": "quiz-6",
+    "lessonId": "lesson-6",
+    "title": "Quiz: Numbers 1-5",
+    "questions": [
+      {
+        "id": "q1",
+        "question": "Which number does this sign represent?",
+        "image": "assets/signs/3.png",
+        "options": ["1", "2", "3", "4"],
+        "answer": "3"
+      },
+      {
+        "id": "q2",
+        "question": "How do you sign the number 5?",
+        "options": [
+          "Index finger extended upward.",
+          "All five fingers spread open.",
+          "Four fingers up, thumb tucked.",
+          "Thumb, index, and middle fingers up."
+        ],
+        "answer": "All five fingers spread open."
+      },
+      {
+        "id": "q3",
+        "question": "Which number does this sign represent?",
+        "image": "assets/signs/1.png",
+        "options": ["1", "2", "3", "4"],
+        "answer": "1"
+      },
+      {
+        "id": "q4",
+        "question": "How do you sign the number 4?",
+        "options": [
+          "All five fingers spread open.",
+          "Index and middle fingers up.",
+          "Four fingers up, thumb tucked.",
+          "Thumb, index, and middle fingers up."
+        ],
+        "answer": "Four fingers up, thumb tucked."
+      },
+      {
+        "id": "q5",
+        "question": "Which number does this sign represent?",
+        "image": "assets/signs/2.png",
+        "options": ["1", "2", "3", "5"],
+        "answer": "2"
+      }
+    ]
+  },
+  {
+    "id": "quiz-7",
+    "lessonId": "lesson-7",
+    "title": "Quiz: Numbers 6-10",
+    "questions": [
+      {
+        "id": "q1",
+        "question": "How do you sign the number 6?",
+        "options": [
+          "Ring finger and thumb touch.",
+          "Pinky and thumb touch, other fingers spread.",
+          "Middle finger and thumb touch.",
+          "Index finger and thumb touch in a loop."
+        ],
+        "answer": "Pinky and thumb touch, other fingers spread."
+      },
+      {
+        "id": "q2",
+        "question": "Which number does this sign represent?",
+        "image": "assets/signs/9.png",
+        "options": ["6", "7", "8", "9"],
+        "answer": "9"
+      },
+      {
+        "id": "q3",
+        "question": "How do you sign the number 10?",
+        "options": [
+          "Index finger and thumb touch in a loop.",
+          "Thumbs-up with a small twist motion.",
+          "All fingers spread open.",
+          "Middle finger and thumb touch."
+        ],
+        "answer": "Thumbs-up with a small twist motion."
+      },
+      {
+        "id": "q4",
+        "question": "Which number does this sign represent?",
+        "image": "assets/signs/7.png",
+        "options": ["6", "7", "8", "10"],
+        "answer": "7"
+      },
+      {
+        "id": "q5",
+        "question": "How do you sign the number 8?",
+        "options": [
+          "Ring finger and thumb touch.",
+          "Pinky and thumb touch.",
+          "Middle finger and thumb touch.",
+          "Index and thumb touch in a loop."
+        ],
+        "answer": "Middle finger and thumb touch."
+      }
+    ]
+  },
+  {
+    "id": "quiz-8",
+    "lessonId": "lesson-8",
+    "title": "Quiz: Common Greetings",
+    "questions": [
+      {
+        "id": "q1",
+        "question": "How do you sign 'Thank You' in ISL?",
+        "options": [
+          "Fist circles over chest.",
+          "Flat hand circles over chest.",
+          "Flat hand from lips, moves forward.",
+          "Wave hand side to side."
+        ],
+        "answer": "Flat hand from lips, moves forward."
+      },
+      {
+        "id": "q2",
+        "question": "Which greeting does this sign represent?",
+        "image": "assets/signs/hello.png",
+        "options": ["Hello", "Goodbye", "Please", "Sorry"],
+        "answer": "Hello"
+      },
+      {
+        "id": "q3",
+        "question": "How do you sign 'Sorry' in ISL?",
+        "options": [
+          "Flat hand circles over chest.",
+          "Fist circles over chest.",
+          "Flat hand from lips moves forward.",
+          "Wave side to side."
+        ],
+        "answer": "Fist circles over chest."
+      },
+      {
+        "id": "q4",
+        "question": "Which greeting does this sign represent?",
+        "image": "assets/signs/please.png",
+        "options": ["Hello", "Goodbye", "Please", "Thank You"],
+        "answer": "Please"
+      },
+      {
+        "id": "q5",
+        "question": "How do you sign 'Goodbye'?",
+        "options": [
+          "Open hand, fingertips near forehead, then swing out.",
+          "Wave hand side to side with open palm.",
+          "Flat hand from lips, moves forward.",
+          "Fist circles over chest."
+        ],
+        "answer": "Wave hand side to side with open palm."
+      }
+    ]
+  },
+  {
+    "id": "quiz-9",
+    "lessonId": "lesson-9",
+    "title": "Quiz: Family Members",
+    "questions": [
+      {
+        "id": "q1",
+        "question": "How do you sign 'Mother'?",
+        "options": [
+          "Thumb touches forehead with open hand.",
+          "Thumb touches chin with open hand.",
+          "L hand from forehead moves down.",
+          "Interlock index fingers."
+        ],
+        "answer": "Thumb touches chin with open hand."
+      },
+      {
+        "id": "q2",
+        "question": "Which family member does this sign represent?",
+        "image": "assets/signs/father.png",
+        "options": ["Mother", "Father", "Brother", "Friend"],
+        "answer": "Father"
+      },
+      {
+        "id": "q3",
+        "question": "How do you sign 'Friend'?",
+        "options": [
+          "L hand from chin moves down.",
+          "Thumb touches chin.",
+          "Interlock index fingers, then reverse.",
+          "Open hand waved side to side."
+        ],
+        "answer": "Interlock index fingers, then reverse."
+      },
+      {
+        "id": "q4",
+        "question": "Which family member does this sign represent?",
+        "image": "assets/signs/sister.png",
+        "options": ["Mother", "Father", "Sister", "Brother"],
+        "answer": "Sister"
+      },
+      {
+        "id": "q5",
+        "question": "How do you sign 'Brother'?",
+        "options": [
+          "L hand from chin moves down to stack on other hand.",
+          "L hand from forehead moves down to stack on other hand.",
+          "Interlock index fingers, then reverse.",
+          "Thumb touches forehead."
+        ],
+        "answer": "L hand from forehead moves down to stack on other hand."
+      }
+    ]
+  },
+  {
+    "id": "quiz-10",
+    "lessonId": "lesson-10",
+    "title": "Quiz: Colors",
+    "questions": [
+      {
+        "id": "q1",
+        "question": "How do you sign 'Red'?",
+        "options": [
+          "B hand shakes at shoulder level.",
+          "G hand shakes at shoulder level.",
+          "Index finger brushes down over lips.",
+          "Open hand on chest, then pull out."
+        ],
+        "answer": "Index finger brushes down over lips."
+      },
+      {
+        "id": "q2",
+        "question": "Which color does this sign represent?",
+        "image": "assets/signs/blue.png",
+        "options": ["Red", "Blue", "Green", "Yellow"],
+        "answer": "Blue"
+      },
+      {
+        "id": "q3",
+        "question": "How do you sign 'White'?",
+        "options": [
+          "Y hand shakes at shoulder.",
+          "G hand shakes at shoulder.",
+          "Open hand on chest, then pull out to closed hand.",
+          "Index finger brushes over lips."
+        ],
+        "answer": "Open hand on chest, then pull out to closed hand."
+      },
+      {
+        "id": "q4",
+        "question": "Which color does this sign represent?",
+        "image": "assets/signs/green.png",
+        "options": ["Red", "Blue", "Green", "White"],
+        "answer": "Green"
+      },
+      {
+        "id": "q5",
+        "question": "How do you sign 'Yellow'?",
+        "options": [
+          "B hand shakes at shoulder level.",
+          "G hand shakes at shoulder level.",
+          "Y hand shakes at shoulder level.",
+          "Open hand on chest, pull out."
+        ],
+        "answer": "Y hand shakes at shoulder level."
+      }
+    ]
+  }
+]

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mudrika</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="splash">
+  <div class="splash-ring">
+    <div class="ring-text" id="ringText">
+      MUDRIKA • LEARN • CONNECT • COMMUNICATE •
+    </div>
+    <img src="assets/logo.png" alt="Mudrika Logo">
+  </div>
+</div>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div style="display:flex; align-items:center; gap:10px;">
+    <img src="assets/logo.png" alt="Mudrika Logo" style="height:45px; border-radius: 50%;">
+    <!-- SITE NAME ADDED -->
+    <h2 style="margin:0; color:#FFFFFF;">Mudrika</h2>
+  </div>
+
+  <div>
+    <a href="progress.html" class="nav-btn">Progress</a>
+    <a href="login.html" class="nav-btn">Login</a>
+    <a href="signup.html" class="nav-btn">Sign Up</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <pre><h1><b>Learn 
+  Indian Sign Language
+    Interactively</b></h1></pre>
+  <p>Lessons • Quizzes • Progress Tracking</p>
+  <a href="learn.html" class="start-btn">Start Learning</a>
+</section>
+
+<!-- INFO SECTION 1 -->
+<section style="
+  display:flex;
+  align-items:center;
+  padding:50px;
+  gap:40px;
+">
+
+  <!-- TEXT -->
+  <div style="flex:1;">
+    <h2>Why Mudrika?</h2>
+    <p>
+      Mudrika makes sign language learning simple and visual.
+Designed especially for beginners, it helps you learn Indian Sign Language step by step using images, videos, and interactive lessons.
+Instead of memorizing gestures, you understand them naturally through practice. Mudrika focuses on clarity, accessibility, and inclusivity — because communication should be easy for everyone.
+   </p>
+   <p><b><i>“When words fail, hands begin to speak.”</i></b></p>
+  </div>
+
+  <!-- IMAGE -->
+  <div style="flex:1; text-align:center;">
+    <img src="assets/gifs/whymudrika2.png" style="width:80%;">
+  </div>
+
+</section>
+
+<!-- INFO SECTION 2 -->
+<section style="
+  display:flex;
+  align-items:center;
+  padding:50px;
+  gap:40px;
+  background:#FFF9F2;
+">
+
+  <!-- IMAGE -->
+  <div style="flex:1; text-align:center;">
+    <img src="assets/gifs/quiz2.png" style="width:75%;">
+  </div>
+
+  <!-- TEXT -->
+  <div style="flex:1;">
+    <h2>Practice with Quizzes</h2>
+    <p>
+      Reinforce what you learn through quick, engaging quizzes.After each lesson, test your understanding with short quizzes that help you remember signs better.Instant feedback lets you know what you got right and where you can improve, making learning effective and enjoyable.
+    </p>
+    <p><b><i>“Practice turns learning into confidence.”</i></b></p>
+  </div>
+
+</section>
+
+<!-- INFO SECTION 3 -->
+<section style="
+  display:flex;
+  align-items:center;
+  padding:50px;
+  gap:40px;
+">
+
+  <!-- TEXT -->
+  <div style="flex:1;">
+    <h2>Track Your Progress</h2>
+    <p>
+      See how far you’ve come, one sign at a time.Mudrika helps you track completed lessons and quiz scores, motivating you to stay consistent in your learning journey.By visualizing your progress, you stay encouraged to continue learning and achieve your goals at your own pace.</p>
+    <p><b><i>“Small steps today lead to big progress tomorrow.”</i></b></p>
+  </div>
+
+  <!-- IMAGE -->
+  <div style="flex:1; text-align:center;">
+    <img src="assets/gifs/trackprogress2.png" style="width:80%;">
+  </div>
+
+</section>
+
+<!-- LESSON CARDS (EXISTING LOGIC) -->
+<section class="lessons" id="lessonContainer"></section>
+
+<!-- INTRO VIDEO AT BOTTOM -->
+<section style="
+  text-align:center;
+  padding:60px;
+  background:#FFF9F2;
+">
+  <h2>Introduction to Mudrika</h2>
+  <video controls width="60%">
+    <source src="assets/videos/intro.mp4" type="video/mp4">
+    Your browser does not support video.
+  </video>
+</section>
+
+<script src="js/main.js"></script>
+</body>
+
+</html>

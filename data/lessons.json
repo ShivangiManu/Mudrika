@@ -1,0 +1,143 @@
+[
+  {
+    "id": "lesson-1",
+    "title": "Alphabets A-E",
+    "description": "Learn the first 5 letters of Indian Sign Language.",
+    "level": "Beginner",
+    "xp": 10,
+    "signs": [
+      { "letter": "A", "image": "assets/signs/A.png", "description": "Make a fist with thumb resting on the side." },
+      { "letter": "B", "image": "assets/signs/B.png", "description": "Hold all four fingers straight up, thumb folded across palm." },
+      { "letter": "C", "image": "assets/signs/C.png", "description": "Curve fingers and thumb to form the letter C." },
+      { "letter": "D", "image": "assets/signs/D.png", "description": "Index finger points up, other fingers and thumb form a circle." },
+      { "letter": "E", "image": "assets/signs/E.png", "description": "Curl all fingers down, thumb tucked under." }
+    ]
+  },
+  {
+    "id": "lesson-2",
+    "title": "Alphabets F-J",
+    "description": "Continue with the next 5 letters of ISL.",
+    "level": "Beginner",
+    "xp": 10,
+    "signs": [
+      { "letter": "F", "image": "assets/signs/F.png", "description": "Touch index finger to thumb, other fingers extended." },
+      { "letter": "G", "image": "assets/signs/G.png", "description": "Index finger and thumb point sideways." },
+      { "letter": "H", "image": "assets/signs/H.png", "description": "Index and middle finger point sideways together." },
+      { "letter": "I", "image": "assets/signs/I.png", "description": "Pinky finger raised, other fingers folded." },
+      { "letter": "J", "image": "assets/signs/J.png", "description": "Pinky raised and trace a J motion." }
+    ]
+  },
+  {
+    "id": "lesson-3",
+    "title": "Alphabets K-O",
+    "description": "Learn ISL letters K through O.",
+    "level": "Beginner",
+    "xp": 10,
+    "signs": [
+      { "letter": "K", "image": "assets/signs/K.png", "description": "Index and middle finger up, thumb between them." },
+      { "letter": "L", "image": "assets/signs/L.png", "description": "Index finger up, thumb out forming an L shape." },
+      { "letter": "M", "image": "assets/signs/M.png", "description": "Three fingers folded over thumb." },
+      { "letter": "N", "image": "assets/signs/N.png", "description": "Two fingers folded over thumb." },
+      { "letter": "O", "image": "assets/signs/O.png", "description": "All fingers and thumb curved to form O." }
+    ]
+  },
+  {
+    "id": "lesson-4",
+    "title": "Alphabets P-T",
+    "description": "Learn ISL letters P through T.",
+    "level": "Beginner",
+    "xp": 10,
+    "signs": [
+      { "letter": "P", "image": "assets/signs/P.png", "description": "Index finger points down, middle finger out, thumb to side." },
+      { "letter": "Q", "image": "assets/signs/Q.png", "description": "Index and thumb point down." },
+      { "letter": "R", "image": "assets/signs/R.png", "description": "Index and middle finger crossed." },
+      { "letter": "S", "image": "assets/signs/S.png", "description": "Fist with thumb over fingers." },
+      { "letter": "T", "image": "assets/signs/T.png", "description": "Thumb between index and middle finger." }
+    ]
+  },
+  {
+    "id": "lesson-5",
+    "title": "Alphabets U-Z",
+    "description": "Complete the ISL alphabet with U through Z.",
+    "level": "Beginner",
+    "xp": 10,
+    "signs": [
+      { "letter": "U", "image": "assets/signs/U.png", "description": "Index and middle fingers up together." },
+      { "letter": "V", "image": "assets/signs/V.png", "description": "Index and middle fingers up, spread apart." },
+      { "letter": "W", "image": "assets/signs/W.png", "description": "Three fingers (index, middle, ring) up and spread." },
+      { "letter": "X", "image": "assets/signs/X.png", "description": "Index finger bent/hooked." },
+      { "letter": "Y", "image": "assets/signs/Y.png", "description": "Thumb and pinky extended." },
+      { "letter": "Z", "image": "assets/signs/Z.png", "description": "Index finger traces a Z in the air." }
+    ]
+  },
+  {
+    "id": "lesson-6",
+    "title": "Numbers 1-5",
+    "description": "Learn how to sign numbers 1 through 5.",
+    "level": "Beginner",
+    "xp": 10,
+    "signs": [
+      { "letter": "1", "image": "assets/signs/1.png", "description": "Index finger extended upward." },
+      { "letter": "2", "image": "assets/signs/2.png", "description": "Index and middle fingers up." },
+      { "letter": "3", "image": "assets/signs/3.png", "description": "Thumb, index, and middle fingers up." },
+      { "letter": "4", "image": "assets/signs/4.png", "description": "Four fingers up, thumb tucked." },
+      { "letter": "5", "image": "assets/signs/5.png", "description": "All five fingers spread open." }
+    ]
+  },
+  {
+    "id": "lesson-7",
+    "title": "Numbers 6-10",
+    "description": "Learn how to sign numbers 6 through 10.",
+    "level": "Beginner",
+    "xp": 10,
+    "signs": [
+      { "letter": "6", "image": "assets/signs/6.png", "description": "Pinky and thumb touch, other fingers spread." },
+      { "letter": "7", "image": "assets/signs/7.png", "description": "Ring finger and thumb touch." },
+      { "letter": "8", "image": "assets/signs/8.png", "description": "Middle finger and thumb touch." },
+      { "letter": "9", "image": "assets/signs/9.png", "description": "Index finger and thumb touch in a loop." },
+      { "letter": "10", "image": "assets/signs/10.png", "description": "Thumbs-up with a small twist motion." }
+    ]
+  },
+  {
+    "id": "lesson-8",
+    "title": "Common Greetings",
+    "description": "Learn everyday greetings in Indian Sign Language.",
+    "level": "Intermediate",
+    "xp": 15,
+    "signs": [
+      { "letter": "Hello", "image": "assets/signs/hello.png", "description": "Open hand, fingertips near forehead, then swing out." },
+      { "letter": "Goodbye", "image": "assets/signs/goodbye.png", "description": "Wave hand side to side with open palm." },
+      { "letter": "Thank You", "image": "assets/signs/thankyou.png", "description": "Flat hand from lips, moves forward." },
+      { "letter": "Please", "image": "assets/signs/please.png", "description": "Flat hand circles over chest." },
+      { "letter": "Sorry", "image": "assets/signs/sorry.png", "description": "Fist circles over chest." }
+    ]
+  },
+  {
+    "id": "lesson-9",
+    "title": "Family Members",
+    "description": "Learn signs for family relationships.",
+    "level": "Intermediate",
+    "xp": 15,
+    "signs": [
+      { "letter": "Mother", "image": "assets/signs/mother.png", "description": "Thumb touches chin with open hand." },
+      { "letter": "Father", "image": "assets/signs/father.png", "description": "Thumb touches forehead with open hand." },
+      { "letter": "Sister", "image": "assets/signs/sister.png", "description": "L hand from chin moves down to stack on other hand." },
+      { "letter": "Brother", "image": "assets/signs/brother.png", "description": "L hand from forehead moves down to stack on other hand." },
+      { "letter": "Friend", "image": "assets/signs/friend.png", "description": "Interlock index fingers, then reverse." }
+    ]
+  },
+  {
+    "id": "lesson-10",
+    "title": "Colors",
+    "description": "Learn signs for common colors.",
+    "level": "Intermediate",
+    "xp": 15,
+    "signs": [
+      { "letter": "Red", "image": "assets/signs/red.png", "description": "Index finger brushes down over lips." },
+      { "letter": "Blue", "image": "assets/signs/blue.png", "description": "B hand shakes at shoulder level." },
+      { "letter": "Green", "image": "assets/signs/green.png", "description": "G hand shakes at shoulder level." },
+      { "letter": "Yellow", "image": "assets/signs/yellow.png", "description": "Y hand shakes at shoulder level." },
+      { "letter": "White", "image": "assets/signs/white.png", "description": "Open hand on chest, then pull out to closed hand." }
+    ]
+  }
+]

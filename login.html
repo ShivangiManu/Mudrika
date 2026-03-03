@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mudrika | Login</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ✅ BACK TO HOME LINK -->
+<a href="index.html" style="
+  position:absolute;
+  top:20px;
+  left:20px;
+  text-decoration:none;
+  font-weight:bold;
+  color: darkorange;
+">Home</a>
+
+<div style="display:flex; height:100vh;">
+
+  <!-- LEFT LOGO SECTION -->
+  <div style="
+    flex:1;
+    background: linear-gradient(to bottom, #C65A3A, #F2B36D);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+  ">
+    <img src="assets/logo.png" style="
+  width:60%;
+  border-radius: 50%;
+">
+
+
+  </div>
+
+  <!-- RIGHT FORM SECTION -->
+  <div style="
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+  ">
+    <h2>Welcome to <span class="title">Mudrika</span></h2>
+    <input type="text" placeholder="Username">
+    <input type="password" placeholder="Password">
+
+    <button onclick="login()">Login</button>
+    <p>New user? <a href="signup.html">Sign up</a></p>
+  </div>
+
+</div>
+
+<script src="js/auth.js"></script>
+</body>
+</html>
+
