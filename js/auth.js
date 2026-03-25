@@ -13,6 +13,8 @@ function signup() {
 // Simple localStorage-based auth (no real backend needed for a school project)
 // Users are stored as { username, password } in localStorage
 
+
+/*
 function signup() {
   const inputs = document.querySelectorAll("input");
   const username = inputs[0].value.trim();
@@ -78,4 +80,349 @@ function showMsg(msg, type) {
   }
   el.textContent = msg;
   el.style.color = type === "error" ? "#E53935" : "#4CAF50";
+}
+ */
+
+// ============================================
+// MUDRIKA - FIREBASE AUTHENTICATION
+// ============================================
+
+console.log("auth.js loaded");
+
+// Wait for the page to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("Page loaded, checking Firebase auth...");
+    
+    // Check if Firebase auth is available
+    if (typeof auth !== 'undefined') {
+        console.log("Firebase auth is available");
+        
+        // Listen for auth state changes
+        auth.onAuthStateChanged(function(user) {
+            if (user) {
+                console.log("User is logged in:", user.email);
+                // Update any UI elements that need to show user info
+                updateUserDisplay(user);
+            } else {
+                console.log("No user is logged in");
+            }
+        });
+    } else {
+        console.error("Firebase auth not available! Check your script tags.");
+    }
+});
+
+// Function to update display (can be called from other pages)
+function updateUserDisplay(user) {
+    const userDisplay = document.getElementById('userDisplay');
+    if (userDisplay && user) {
+        const username = localStorage.getItem('mudrika_username') || user.email.split('@')[0];
+        userDisplay.innerHTML = `👋 ${username}`;
+    }
+}
+
+// ============================================
+// SIGN UP FUNCTION
+// ============================================
+async function signup() {
+    console.log("Signup function called");
+    
+    // Get form values - for signup.html we have 3 fields
+    const usernameInput = document.getElementById('signup-username');
+    const emailInput = document.getElementById('signup-email');
+    const passwordInput = document.getElementById('signup-password');
+    
+    // If using old signup.html without IDs, try querySelector
+    let username, email, password;
+    
+    if (usernameInput && emailInput && passwordInput) {
+        username = usernameInput.value.trim();
+        email = emailInput.value.trim();
+        password = passwordInput.value;
+    } else {
+        // Fallback for older HTML structure
+        const inputs = document.querySelectorAll("input");
+        if (inputs.length >= 3) {
+            username = inputs[0].value.trim();
+            email = inputs[1].value.trim();
+            password = inputs[2].value;
+        } else {
+            showMsg("Please use the updated signup form", "error");
+            return;
+        }
+    }
+    
+    console.log("Signup attempt for:", email);
+    
+    // Validation
+    if (!username || !email || !password) {
+        showMsg("Please fill in all fields.", "error");
+        return;
+    }
+    
+    if (password.length < 6) {
+        showMsg("Password must be at least 6 characters.", "error");
+        return;
+    }
+    
+    // Show loading message
+    showMsg("Creating account...", "success");
+    
+    try {
+        // Create user with Firebase
+        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+        const user = userCredential.user;
+        
+        console.log("User created successfully:", user.uid);
+        
+        // Store username in localStorage (we'll move to Firestore later)
+        localStorage.setItem('mudrika_username', username);
+        localStorage.setItem('mudrika_user_id', user.uid);
+        
+        // Initialize user progress
+        if (!localStorage.getItem('completedLessons')) {
+            localStorage.setItem('completedLessons', JSON.stringify([]));
+        }
+        if (!localStorage.getItem('totalXP')) {
+            localStorage.setItem('totalXP', '0');
+        }
+        if (!localStorage.getItem('xp')) {
+            localStorage.setItem('xp', '0');
+        }
+        if (!localStorage.getItem('streak')) {
+            localStorage.setItem('streak', '0');
+        }
+        
+        showMsg("Account created successfully! Redirecting...", "success");
+        
+        // Redirect after 1.5 seconds
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 1500);
+        
+    } catch (error) {
+        console.error("Signup error:", error);
+        
+        // Handle common errors
+        let errorMessage = "Signup failed. ";
+        if (error.code === 'auth/email-already-in-use') {
+            errorMessage = "This email is already registered. Please login instead.";
+        } else if (error.code === 'auth/invalid-email') {
+            errorMessage = "Please enter a valid email address.";
+        } else if (error.code === 'auth/weak-password') {
+            errorMessage = "Password should be at least 6 characters.";
+        } else {
+            errorMessage += error.message;
+        }
+        
+        showMsg(errorMessage, "error");
+    }
+}
+
+// ============================================
+// LOGIN FUNCTION
+// ============================================
+async function login() {
+    console.log("Login function called");
+    
+    // Get form values
+    const emailInput = document.getElementById('login-email');
+    const passwordInput = document.getElementById('login-password');
+    
+    let email, password;
+    
+    if (emailInput && passwordInput) {
+        email = emailInput.value.trim();
+        password = passwordInput.value;
+    } else {
+        // Fallback for older HTML structure
+        const inputs = document.querySelectorAll("input");
+        if (inputs.length >= 2) {
+            email = inputs[0].value.trim();
+            password = inputs[1].value;
+        } else {
+            showMsg("Please use the updated login form", "error");
+            return;
+        }
+    }
+    
+    console.log("Login attempt for:", email);
+    
+    // Validation
+    if (!email || !password) {
+        showMsg("Please fill in all fields.", "error");
+        return;
+    }
+    
+    // Show loading message
+    showMsg("Logging in...", "success");
+    
+    try {
+        // Sign in with Firebase
+        const userCredential = await auth.signInWithEmailAndPassword(email, password);
+        const user = userCredential.user;
+        
+        console.log("User logged in:", user.uid);
+        
+        // Get username (from localStorage or use email prefix)
+        const username = localStorage.getItem('mudrika_username') || email.split('@')[0];
+        
+        showMsg("Welcome back, " + username + "!", "success");
+        
+        // Redirect after 1.5 seconds
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 1500);
+        
+    } catch (error) {
+        console.error("Login error:", error);
+        
+        // Handle common errors
+        let errorMessage = "Login failed. ";
+        if (error.code === 'auth/user-not-found') {
+            errorMessage = "No account found with this email. Please sign up first.";
+        } else if (error.code === 'auth/wrong-password') {
+            errorMessage = "Incorrect password. Please try again.";
+        } else if (error.code === 'auth/invalid-email') {
+            errorMessage = "Please enter a valid email address.";
+        } else if (error.code === 'auth/too-many-requests') {
+            errorMessage = "Too many failed attempts. Please try again later.";
+        } else {
+            errorMessage += error.message;
+        }
+        
+        showMsg(errorMessage, "error");
+    }
+}
+
+// ============================================
+// GUEST LOGIN
+// ============================================
+function loginAsGuest() {
+    console.log("Guest login");
+    
+    // Store guest session in localStorage
+    localStorage.setItem('mudrika_current_user', 'guest');
+    localStorage.setItem('mudrika_username', 'Guest User');
+    
+    // Initialize guest progress if not exists
+    if (!localStorage.getItem('completedLessons')) {
+        localStorage.setItem('completedLessons', JSON.stringify([]));
+    }
+    if (!localStorage.getItem('totalXP')) {
+        localStorage.setItem('totalXP', '0');
+    }
+    if (!localStorage.getItem('xp')) {
+        localStorage.setItem('xp', '0');
+    }
+    if (!localStorage.getItem('streak')) {
+        localStorage.setItem('streak', '0');
+    }
+    
+    showMsg("Continuing as guest...", "success");
+    
+    setTimeout(() => {
+        window.location.href = "index.html";
+    }, 1000);
+}
+
+// ============================================
+// LOGOUT FUNCTION
+// ============================================
+async function logout() {
+    console.log("Logout function called");
+    
+    try {
+        if (typeof auth !== 'undefined') {
+            await auth.signOut();
+        }
+        localStorage.removeItem('mudrika_current_user');
+        localStorage.removeItem('mudrika_username');
+        localStorage.removeItem('mudrika_user_id');
+        
+        showMsg("Logged out successfully!", "success");
+        
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 1000);
+        
+    } catch (error) {
+        console.error("Logout error:", error);
+        showMsg("Logout failed. Please try again.", "error");
+    }
+}
+
+// ============================================
+// GET CURRENT USER INFO
+// ============================================
+function getCurrentUser() {
+    if (typeof auth !== 'undefined') {
+        const user = auth.currentUser;
+        if (user) {
+            return {
+                uid: user.uid,
+                email: user.email,
+                username: localStorage.getItem('mudrika_username') || user.email.split('@')[0]
+            };
+        }
+    }
+    
+    // Check for guest
+    if (localStorage.getItem('mudrika_current_user') === 'guest') {
+        return {
+            uid: 'guest',
+            email: null,
+            username: 'Guest User'
+        };
+    }
+    
+    return null;
+}
+
+// ============================================
+// CHECK IF USER IS LOGGED IN
+// ============================================
+function isLoggedIn() {
+    return new Promise((resolve) => {
+        if (typeof auth !== 'undefined') {
+            auth.onAuthStateChanged(function(user) {
+                resolve(user !== null);
+            });
+        } else {
+            resolve(localStorage.getItem('mudrika_current_user') === 'guest');
+        }
+    });
+}
+
+// ============================================
+// HELPER FUNCTION TO SHOW MESSAGES
+// ============================================
+function showMsg(msg, type) {
+    console.log("Showing message:", msg, type);
+    
+    let el = document.getElementById("auth-msg");
+    
+    // If element doesn't exist, create it
+    if (!el) {
+        el = document.createElement("p");
+        el.id = "auth-msg";
+        el.style.cssText = "font-weight:600;margin-top:12px;font-size:0.9rem;";
+        
+        // Try to find where to insert it
+        const button = document.querySelector("button");
+        if (button) {
+            button.insertAdjacentElement("afterend", el);
+        } else {
+            const container = document.querySelector("div[style*='flex']");
+            if (container) container.appendChild(el);
+        }
+    }
+    
+    el.textContent = msg;
+    el.style.color = type === "error" ? "#E53935" : "#4CAF50";
+    
+    // Clear message after 3 seconds
+    setTimeout(() => {
+        if (el) el.textContent = "";
+    }, 3000);
 }

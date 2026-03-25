@@ -4,6 +4,15 @@
   <title>Mudrika | Sign Up</title>
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- 🔥 FIREBASE SCRIPTS - MUST BE IN THIS ORDER 🔥 -->
+  <!-- 1. Firebase Core (the main library) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <!-- 2. Firebase Authentication (for user login) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <!-- 3. Your Firebase configuration (connects to YOUR project) -->
+  <script src="js/firebase-config.js"></script>
+
 </head>
 <body>
 
@@ -42,11 +51,24 @@
     align-items:center;
   ">
     <h2>Create your <span class="title">Mudrika</span> Account</h2>
-
+    
+    <!--
     <input type="text" placeholder="Username">
     <input type="password" placeholder="Password">
 
     <button onclick="signup()">Sign Up</button>
+    -->
+
+    <!-- IMPORTANT: Added IDs to inputs -->
+    
+    <input type="text" id="signup-username" placeholder="Username" style="width:80%; max-width:300px; margin:10px 0; padding:10px; border-radius:8px; border:1px solid #D8BFA8;">
+    <input type="email" id="signup-email" placeholder="Email Address" style="width:80%; max-width:300px; margin:10px 0; padding:10px; border-radius:8px; border:1px solid #D8BFA8;">
+    <input type="password" id="signup-password" placeholder="Password (min. 6 characters)" style="width:80%; max-width:300px; margin:10px 0; padding:10px; border-radius:8px; border:1px solid #D8BFA8;">
+
+    <button onclick="signup()" style="background:#C65A3A; color:white; border:none; padding:10px 25px; border-radius:20px; cursor:pointer;">Sign Up</button>
+    
+    <p id="auth-msg" style="margin-top:10px;"></p>
+
     <p>Already have an account? <a href="login.html">Login</a></p>
   </div>
 

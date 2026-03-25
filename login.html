@@ -4,7 +4,17 @@
   <title>Mudrika | Login</title>
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- 🔥 FIREBASE SCRIPTS - MUST BE IN THIS ORDER 🔥 -->
+  <!-- 1. Firebase Core (the main library) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <!-- 2. Firebase Authentication (for user login) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <!-- 3. Your Firebase configuration (connects to YOUR project) -->
+  <script src="js/firebase-config.js"></script>
+
 </head>
+
 <body>
 
 <!-- ✅ BACK TO HOME LINK -->
@@ -44,17 +54,32 @@
     align-items:center;
   ">
     <h2>Welcome to <span class="title">Mudrika</span></h2>
+    
+    <!--
     <input type="text" placeholder="Username">
     <input type="password" placeholder="Password">
 
     <button onclick="login()">Login</button>
-
-    <!-- ✅ GUEST BUTTON -->
+    -->
+    <!--✅ GUEST BUTTON -->
+    <!--
     <button onclick="loginAsGuest()" style="background:#888;margin-top:8px;">
       Continue as Guest
     </button>
+    <p id="auth-msg"></p>-->  <!-- ✅ MOVED HERE so showMsg() always finds it -->
 
-    <p id="auth-msg"></p>  <!-- ✅ MOVED HERE so showMsg() always finds it -->
+    <!-- IMPORTANT: Added IDs to inputs -->
+    <input type="email" id="login-email" placeholder="Email Address" style="width:80%; max-width:300px; margin:10px 0; padding:10px; border-radius:8px; border:1px solid #D8BFA8;">
+    <input type="password" id="login-password" placeholder="Password" style="width:80%; max-width:300px; margin:10px 0; padding:10px; border-radius:8px; border:1px solid #D8BFA8;">
+
+    <button onclick="login()" style="background:#C65A3A; color:white; border:none; padding:10px 25px; border-radius:20px; cursor:pointer;">Login</button>
+    
+    <button onclick="loginAsGuest()" style="background:#888; color:white; border:none; padding:10px 25px; border-radius:20px; cursor:pointer; margin-top:8px;">
+      Continue as Guest
+    </button>
+
+    <p id="auth-msg" style="margin-top:10px;"></p>
+
     <p>New user? <a href="signup.html">Sign up</a></p>
   </div>
 

@@ -7,6 +7,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+
+<!-- 🔥 FIREBASE SCRIPTS 🔥 -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/auth.js"></script>
+  
 </head>
 <body>
 <div id="splash">
@@ -27,8 +34,17 @@
 
   <div>
     <a href="progress.html" class="nav-btn">Progress</a>
+    <!-- ADD THIS USER DISPLAY SPAN -->
+    <span id="userDisplay" style="color:white; margin-right:15px;"></span>
+
+    <!--
     <a href="login.html" class="nav-btn">Login</a>
     <a href="signup.html" class="nav-btn">Sign Up</a>
+    -->
+
+    <a href="login.html" id="loginLogoutBtn" class="nav-btn">Login</a>
+    <a href="signup.html" id="signupBtn" class="nav-btn">Sign Up</a>
+
   </div>
 </nav>
 
@@ -132,6 +148,55 @@ Instead of memorizing gestures, you understand them naturally through practice. 
 </section>
 
 <script src="js/main.js"></script>
+
+<script>
+// Handle user display in navbar
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("Index page loaded");
+    
+    const userDisplay = document.getElementById('userDisplay');
+    const loginLogoutBtn = document.getElementById('loginLogoutBtn');
+    const signupBtn = document.getElementById('signupBtn');
+    
+    // Check if Firebase auth is available
+    if (typeof auth !== 'undefined') {
+        auth.onAuthStateChanged(function(user) {
+            console.log("Auth state changed:", user ? user.email : "null");
+            
+            if (user) {
+                // User is logged in with Firebase
+                const username = localStorage.getItem('mudrika_username') || user.email.split('@')[0];
+                if (userDisplay) userDisplay.innerHTML = `👋 ${username}`;
+                if (loginLogoutBtn) {
+                    loginLogoutBtn.innerHTML = 'Logout';
+                    loginLogoutBtn.href = '#';
+                    loginLogoutBtn.onclick = function(e) {
+                        e.preventDefault();
+                        logout();
+                    };
+                }
+                if (signupBtn) signupBtn.style.display = 'none';
+            } else {
+                // No Firebase user - check for guest
+                const guestName = localStorage.getItem('mudrika_username');
+                if (guestName === 'Guest User') {
+                    if (userDisplay) userDisplay.innerHTML = `👋 Guest`;
+                } else {
+                    if (userDisplay) userDisplay.innerHTML = '';
+                }
+                if (loginLogoutBtn) {
+                    loginLogoutBtn.innerHTML = 'Login';
+                    loginLogoutBtn.href = 'login.html';
+                    loginLogoutBtn.onclick = null;
+                }
+                if (signupBtn) signupBtn.style.display = 'inline-block';
+            }
+        });
+    } else {
+        console.error("Firebase auth not available!");
+    }
+});
+</script>
 </body>
 
 </html>
