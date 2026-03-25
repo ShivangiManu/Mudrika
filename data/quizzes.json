@@ -7,14 +7,14 @@
       {
         "id": "q1",
         "question": "Which letter does this sign represent?",
-        "image": "assets/signs/A.png",
+        "image": "assets/quiz/A.png",
         "options": ["A", "B", "C", "E"],
         "answer": "A"
       },
       {
         "id": "q2",
         "question": "Which letter does this sign represent?",
-        "image": "assets/signs/C.png",
+        "image": "assets/quiz/C.png",
         "options": ["A", "B", "C", "D"],
         "answer": "C"
       },
@@ -32,7 +32,7 @@
       {
         "id": "q4",
         "question": "Which letter does this sign represent?",
-        "image": "assets/signs/D.png",
+        "image": "assets/quiz/D.png",
         "options": ["A", "D", "O", "C"],
         "answer": "D"
       },
@@ -57,7 +57,7 @@
       {
         "id": "q1",
         "question": "Which letter does this sign represent?",
-        "image": "assets/signs/F.png",
+        "image": "assets/quiz/F.png",
         "options": ["F", "G", "H", "I"],
         "answer": "F"
       },
@@ -75,7 +75,7 @@
       {
         "id": "q3",
         "question": "Which letter does this sign represent?",
-        "image": "assets/signs/I.png",
+        "image": "assets/quiz/I.png",
         "options": ["F", "G", "H", "I"],
         "answer": "I"
       },
@@ -93,7 +93,7 @@
       {
         "id": "q5",
         "question": "Which letter does this sign represent?",
-        "image": "assets/signs/H.png",
+        "image": "assets/quiz/H.png",
         "options": ["F", "G", "H", "J"],
         "answer": "H"
       }
@@ -118,7 +118,7 @@
       {
         "id": "q2",
         "question": "Which letter does this sign represent?",
-        "image": "assets/signs/O.png",
+        "image": "assets/quiz/O.png",
         "options": ["C", "M", "N", "O"],
         "answer": "O"
       },
@@ -136,7 +136,7 @@
       {
         "id": "q4",
         "question": "Which letter does this sign represent?",
-        "image": "assets/signs/K.png",
+        "image": "assets/quiz/K.png",
         "options": ["K", "L", "M", "N"],
         "answer": "K"
       },
@@ -161,7 +161,7 @@
       {
         "id": "q1",
         "question": "Which letter does this sign represent?",
-        "image": "assets/signs/R.png",
+        "image": "assets/quiz/R.png",
         "options": ["P", "Q", "R", "S"],
         "answer": "R"
       },
@@ -179,7 +179,7 @@
       {
         "id": "q3",
         "question": "Which letter does this sign represent?",
-        "image": "assets/signs/T.png",
+        "image": "assets/quiz/T.png",
         "options": ["R", "S", "T", "P"],
         "answer": "T"
       },
@@ -197,7 +197,7 @@
       {
         "id": "q5",
         "question": "Which letter does this sign represent?",
-        "image": "assets/signs/Q.png",
+        "image": "assets/quiz/Q.png",
         "options": ["P", "Q", "S", "T"],
         "answer": "Q"
       }
@@ -222,7 +222,7 @@
       {
         "id": "q2",
         "question": "Which letter does this sign represent?",
-        "image": "assets/signs/Y.png",
+        "image": "assets/quiz/Y.png",
         "options": ["U", "V", "X", "Y"],
         "answer": "Y"
       },
@@ -240,7 +240,7 @@
       {
         "id": "q4",
         "question": "Which letter does this sign represent?",
-        "image": "assets/signs/W.png",
+        "image": "assets/quiz/W.png",
         "options": ["U", "V", "W", "X"],
         "answer": "W"
       },
@@ -265,7 +265,7 @@
       {
         "id": "q1",
         "question": "Which number does this sign represent?",
-        "image": "assets/signs/3.png",
+        "image": "assets/quiz/3.png",
         "options": ["1", "2", "3", "4"],
         "answer": "3"
       },
@@ -283,7 +283,7 @@
       {
         "id": "q3",
         "question": "Which number does this sign represent?",
-        "image": "assets/signs/1.png",
+        "image": "assets/quiz/1.png",
         "options": ["1", "2", "3", "4"],
         "answer": "1"
       },
@@ -301,7 +301,7 @@
       {
         "id": "q5",
         "question": "Which number does this sign represent?",
-        "image": "assets/signs/2.png",
+        "image": "assets/quiz/2.png",
         "options": ["1", "2", "3", "5"],
         "answer": "2"
       }
@@ -326,7 +326,7 @@
       {
         "id": "q2",
         "question": "Which number does this sign represent?",
-        "image": "assets/signs/9.png",
+        "image": "assets/quiz/9.png",
         "options": ["6", "7", "8", "9"],
         "answer": "9"
       },
@@ -344,7 +344,7 @@
       {
         "id": "q4",
         "question": "Which number does this sign represent?",
-        "image": "assets/signs/7.png",
+        "image": "assets/quiz/7.png",
         "options": ["6", "7", "8", "10"],
         "answer": "7"
       },
@@ -380,7 +380,7 @@
       {
         "id": "q2",
         "question": "Which greeting does this sign represent?",
-        "image": "assets/signs/hello.png",
+        "image": "assets/quiz/hello.png",
         "options": ["Hello", "Goodbye", "Please", "Sorry"],
         "answer": "Hello"
       },
@@ -398,7 +398,7 @@
       {
         "id": "q4",
         "question": "Which greeting does this sign represent?",
-        "image": "assets/signs/please.png",
+        "image": "assets/quiz/please.png",
         "options": ["Hello", "Goodbye", "Please", "Thank You"],
         "answer": "Please"
       },
@@ -434,7 +434,7 @@
       {
         "id": "q2",
         "question": "Which family member does this sign represent?",
-        "image": "assets/signs/father.png",
+        "image": "assets/quiz/father.png",
         "options": ["Mother", "Father", "Brother", "Friend"],
         "answer": "Father"
       },
@@ -452,7 +452,7 @@
       {
         "id": "q4",
         "question": "Which family member does this sign represent?",
-        "image": "assets/signs/sister.png",
+        "image": "assets/quiz/sister.png",
         "options": ["Mother", "Father", "Sister", "Brother"],
         "answer": "Sister"
       },
@@ -488,7 +488,7 @@
       {
         "id": "q2",
         "question": "Which color does this sign represent?",
-        "image": "assets/signs/blue.png",
+        "image": "assets/quiz/blue.png",
         "options": ["Red", "Blue", "Green", "Yellow"],
         "answer": "Blue"
       },
@@ -506,7 +506,7 @@
       {
         "id": "q4",
         "question": "Which color does this sign represent?",
-        "image": "assets/signs/green.png",
+        "image": "assets/quiz/green.png",
         "options": ["Red", "Blue", "Green", "White"],
         "answer": "Green"
       },
