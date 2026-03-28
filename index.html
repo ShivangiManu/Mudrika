@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Mudrika</title>
+  <title>Mudrika - Learn Indian Sign Language</title>
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 
-<!-- 🔥 FIREBASE SCRIPTS 🔥 -->
+  <!-- 🔥 FIREBASE SCRIPTS 🔥 -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
@@ -16,8 +16,32 @@
   <script src="js/firestore-helpers.js"></script>
   <script src="js/auth.js"></script>
   
+  <style>
+    /* Additional styles for better UI */
+    .continue-btn {
+      transition: all 0.3s ease;
+    }
+    .continue-btn:hover {
+      transform: scale(1.05);
+    }
+    .nav-btn {
+      transition: all 0.3s ease;
+    }
+    .nav-btn:hover {
+      transform: translateY(-2px);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero, .lessons, section {
+      animation: fadeIn 0.6s ease-out;
+    }
+  </style>
 </head>
 <body>
+
+<!-- SPLASH SCREEN -->
 <div id="splash">
   <div class="splash-ring">
     <div class="ring-text" id="ringText">
@@ -26,139 +50,138 @@
     <img src="assets/logo.png" alt="Mudrika Logo">
   </div>
 </div>
+
 <!-- NAVBAR -->
 <nav class="navbar">
   <div style="display:flex; align-items:center; gap:10px;">
     <img src="assets/logo.png" alt="Mudrika Logo" style="height:45px; border-radius: 50%;">
-    <!-- SITE NAME ADDED -->
     <h2 style="margin:0; color:#FFFFFF;">Mudrika</h2>
   </div>
 
-  <div>
+  <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+    <!-- CONTINUE BUTTON - Smart navigation -->
+    <a href="#" id="continueBtn" class="nav-btn continue-btn">▶ Continue</a>
     <a href="progress.html" class="nav-btn">Progress</a>
-    <!-- ADD THIS USER DISPLAY SPAN -->
-    <span id="userDisplay" style="color:white; margin-right:5px;"></span>
-
-    <!--
-    <a href="login.html" class="nav-btn">Login</a>
-    <a href="signup.html" class="nav-btn">Sign Up</a>
-    -->
     <a href="videos.html" id="videosBtn" class="nav-btn">Lectures</a>
+    <span id="userDisplay" style="color:white; margin-right:5px;"></span>
     <a href="login.html" id="loginLogoutBtn" class="nav-btn">Login</a>
     <a href="signup.html" id="signupBtn" class="nav-btn">Sign Up</a>
-
   </div>
 </nav>
 
-<!-- HERO -->
+<!-- HERO SECTION -->
 <section class="hero">
   <pre><h1><b>Learn 
   Indian Sign Language
     Interactively</b></h1></pre>
-  <p>Lessons • Quizzes • Progress Tracking</p>
-  <a href="learn.html" class="start-btn">Start Learning</a>
+  <p style="font-size: 1.2rem;">Lessons • Quizzes • Progress Tracking</p>
+
+  <!-- Progress indicator -->
+  <div id="progressIndicator" style="margin: 30px auto; max-width: 350px;">
+    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+      <span style="font-size: 0.85rem; color: #6B5044; font-weight: 500;">Your Learning Progress</span>
+      <span id="progressPercent" style="font-size: 0.85rem; color: #C65A3A; font-weight: bold;">0%</span>
+    </div>
+    <div style="background: #D8BFA8; border-radius: 25px; height: 12px; overflow: hidden; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);">
+      <div id="progressBar" style="width: 0%; background: linear-gradient(90deg, #C65A3A, #F2B36D); height: 12px; border-radius: 25px; transition: width 0.5s ease;"></div>
+    </div>
+    <p id="progressText" style="font-size: 0.75rem; color: #6B5044; margin-top: 8px;">Start your first lesson to begin your journey!</p>
+  </div>
+  
+  <a href="learn.html" id="startLearningBtn" class="start-btn" style="font-size: 1.1rem; padding: 14px 35px;">📖 Start Learning</a>
 </section>
 
-<!-- INFO SECTION 1 -->
-<section style="
-  display:flex;
-  align-items:center;
-  padding:50px;
-  gap:40px;
-">
-
-  <!-- TEXT -->
-  <div style="flex:1;">
-    <h2>Why Mudrika?</h2>
-    <p>
-      Mudrika makes sign language learning simple and visual.
-Designed especially for beginners, it helps you learn Indian Sign Language step by step using images, videos, and interactive lessons.
-Instead of memorizing gestures, you understand them naturally through practice. Mudrika focuses on clarity, accessibility, and inclusivity — because communication should be easy for everyone.
-   </p>
-   <p><b><i>“When words fail, hands begin to speak.”</i></b></p>
-  </div>
-
-  <!-- IMAGE -->
-  <div style="flex:1; text-align:center;">
-    <img src="assets/gifs/whymudrika2.png" style="width:80%;">
-  </div>
-
-</section>
-
-<!-- INFO SECTION 2 -->
-<section style="
-  display:flex;
-  align-items:center;
-  padding:50px;
-  gap:40px;
-  background:#FFF9F2;
-">
-
-  <!-- IMAGE -->
-  <div style="flex:1; text-align:center;">
-    <img src="assets/gifs/quiz2.png" style="width:75%;">
-  </div>
-
-  <!-- TEXT -->
-  <div style="flex:1;">
-    <h2>Practice with Quizzes</h2>
-    <p>
-      Reinforce what you learn through quick, engaging quizzes.After each lesson, test your understanding with short quizzes that help you remember signs better.Instant feedback lets you know what you got right and where you can improve, making learning effective and enjoyable.
+<!-- INFO SECTION 1 - Why Mudrika -->
+<section style="display:flex; align-items:center; padding:50px; gap:40px; flex-wrap: wrap;">
+  <div style="flex:1; min-width: 280px;">
+    <h2 style="font-size: 2rem;">Why Mudrika?</h2>
+    <p style="line-height: 1.8;">
+      Mudrika makes sign language learning simple and visual. Designed especially for beginners, it helps you learn Indian Sign Language step by step using images, videos, and interactive lessons. Instead of memorizing gestures, you understand them naturally through practice. Mudrika focuses on clarity, accessibility, and inclusivity — because communication should be easy for everyone.
     </p>
-    <p><b><i>“Practice turns learning into confidence.”</i></b></p>
+    <p style="font-size: 1.2rem; margin-top: 20px;"><b><i>“When words fail, hands begin to speak.”</i></b></p>
   </div>
-
+  <div style="flex:1; text-align:center; min-width: 280px;">
+    <img src="assets/gifs/whymudrika2.png" style="width:80%; max-width: 350px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+  </div>
 </section>
 
-<!-- INFO SECTION 3 -->
-<section style="
-  display:flex;
-  align-items:center;
-  padding:50px;
-  gap:40px;
-">
-
-  <!-- TEXT -->
-  <div style="flex:1;">
-    <h2>Track Your Progress</h2>
-    <p>
-      See how far you’ve come, one sign at a time.Mudrika helps you track completed lessons and quiz scores, motivating you to stay consistent in your learning journey.By visualizing your progress, you stay encouraged to continue learning and achieve your goals at your own pace.</p>
-    <p><b><i>“Small steps today lead to big progress tomorrow.”</i></b></p>
+<!-- INFO SECTION 2 - Quizzes -->
+<section style="display:flex; align-items:center; padding:50px; gap:40px; background:#FFF9F2; flex-wrap: wrap-reverse;">
+  <div style="flex:1; text-align:center; min-width: 280px;">
+    <img src="assets/gifs/quiz2.png" style="width:75%; max-width: 320px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
   </div>
-
-  <!-- IMAGE -->
-  <div style="flex:1; text-align:center;">
-    <img src="assets/gifs/trackprogress2.png" style="width:80%;">
+  <div style="flex:1; min-width: 280px;">
+    <h2 style="font-size: 2rem;">Practice with Quizzes</h2>
+    <p style="line-height: 1.8;">
+      Reinforce what you learn through quick, engaging quizzes. After each lesson, test your understanding with short quizzes that help you remember signs better. Instant feedback lets you know what you got right and where you can improve, making learning effective and enjoyable.
+    </p>
+    <p style="font-size: 1.2rem; margin-top: 20px;"><b><i>“Practice turns learning into confidence.”</i></b></p>
   </div>
-
 </section>
 
-<!-- LESSON CARDS (EXISTING LOGIC) -->
+<!-- INFO SECTION 3 - Progress Tracking -->
+<section style="display:flex; align-items:center; padding:50px; gap:40px; flex-wrap: wrap;">
+  <div style="flex:1; min-width: 280px;">
+    <h2 style="font-size: 2rem;">Track Your Progress</h2>
+    <p style="line-height: 1.8;">
+      See how far you've come, one sign at a time. Mudrika helps you track completed lessons and quiz scores, motivating you to stay consistent in your learning journey. By visualizing your progress, you stay encouraged to continue learning and achieve your goals at your own pace.
+    </p>
+    <p style="font-size: 1.2rem; margin-top: 20px;"><b><i>“Small steps today lead to big progress tomorrow.”</i></b></p>
+  </div>
+  <div style="flex:1; text-align:center; min-width: 280px;">
+    <img src="assets/gifs/trackprogress2.png" style="width:80%; max-width: 350px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+  </div>
+</section>
+
+<!-- LESSON CARDS SECTION -->
 <section class="lessons" id="lessonContainer"></section>
 
-<!-- INTRO VIDEO AT BOTTOM -->
-<section style="
-  text-align:center;
-  padding:60px;
-  background:#FFF9F2;
-">
-  <h2>Introduction to Mudrika</h2>
-  <video controls width="60%">
-    <source src="assets/videos/intro.mp4" type="video/mp4">
-    Your browser does not support video.
-  </video>
+<!-- INTRO VIDEO SECTION -->
+<section style="text-align:center; padding:60px; background:#FFF9F2;">
+  <h2 style="font-size: 2rem;">Introduction to Mudrika</h2>
+  <div style="margin-top: 30px;">
+    <video controls width="60%" style="border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+      <source src="assets/videos/intro.mp4" type="video/mp4">
+      Your browser does not support video.
+    </video>
+  </div>
 </section>
+
+<!-- FOOTER -->
+<footer style="background: linear-gradient(to right, #C65A3A, #F2B36D); color: white; text-align: center; padding: 30px; margin-top: 50px;">
+  <p style="margin: 0;">© 2024 Mudrika - Learn Indian Sign Language</p>
+  <p style="margin: 10px 0 0; font-size: 0.85rem;">Making communication accessible for everyone</p>
+</footer>
 
 <script src="js/main.js"></script>
 
 <script>
-// Handle user display in navbar
+// Handle user display in navbar and update UI
 document.addEventListener('DOMContentLoaded', function() {
     console.log("Index page loaded");
     
     const userDisplay = document.getElementById('userDisplay');
     const loginLogoutBtn = document.getElementById('loginLogoutBtn');
     const signupBtn = document.getElementById('signupBtn');
+    const continueBtn = document.getElementById('continueBtn');
+    
+    // Update progress text based on completion
+    function updateProgressText(percentage) {
+      const progressText = document.getElementById('progressText');
+      if (progressText) {
+        if (percentage === 0) {
+          progressText.textContent = 'Start your first lesson to begin your journey!';
+        } else if (percentage < 30) {
+          progressText.textContent = 'Great start! Keep going!';
+        } else if (percentage < 70) {
+          progressText.textContent = 'You\'re making excellent progress!';
+        } else if (percentage < 100) {
+          progressText.textContent = 'Almost there! Complete a few more lessons!';
+        } else {
+          progressText.textContent = 'Congratulations! You\'ve mastered all lessons!';
+        }
+      }
+    }
     
     // Check if Firebase auth is available
     if (typeof auth !== 'undefined') {
@@ -167,14 +190,14 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (user) {
                 // User is logged in with Firebase
-                const username = localStorage.getItem('mudrika_username') || user.email.split('@')[0];
-                if (userDisplay) userDisplay.innerHTML = `👋 ${username}`;
+                const username = localStorage.getItem('mudrika_username') || user.displayName || user.email.split('@')[0];
+                if (userDisplay) userDisplay.innerHTML = `${username}`;
                 if (loginLogoutBtn) {
                     loginLogoutBtn.innerHTML = 'Logout';
                     loginLogoutBtn.href = '#';
                     loginLogoutBtn.onclick = function(e) {
                         e.preventDefault();
-                        logout();
+                        if (typeof logout !== 'undefined') logout();
                     };
                 }
                 if (signupBtn) signupBtn.style.display = 'none';
@@ -182,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // No Firebase user - check for guest
                 const guestName = localStorage.getItem('mudrika_username');
                 if (guestName === 'Guest User') {
-                    if (userDisplay) userDisplay.innerHTML = `👋 Guest`;
+                    if (userDisplay) userDisplay.innerHTML = `Guest`;
                 } else {
                     if (userDisplay) userDisplay.innerHTML = '';
                 }
@@ -197,8 +220,40 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         console.error("Firebase auth not available!");
     }
+    
+    // Update continue button from main.js functions
+    if (typeof updateContinueButton !== 'undefined') {
+        updateContinueButton();
+    }
+    
+    // Also update progress text when progress bar updates
+    const observer = new MutationObserver(function() {
+      const progressPercent = document.getElementById('progressPercent');
+      if (progressPercent) {
+        const percentage = parseInt(progressPercent.textContent);
+        updateProgressText(percentage);
+      }
+    });
+    
+    const progressBar = document.getElementById('progressBar');
+    if (progressBar) {
+      observer.observe(progressBar, { attributes: true, attributeFilter: ['style'] });
+    }
+});
+
+// Handle splash screen removal
+window.addEventListener('load', function() {
+    setTimeout(function() {
+        const splash = document.getElementById('splash');
+        if (splash) {
+            splash.classList.add('hide');
+            setTimeout(function() {
+                splash.remove();
+            }, 900);
+        }
+    }, 2500);
 });
 </script>
-</body>
 
+</body>
 </html>

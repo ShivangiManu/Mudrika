@@ -64,8 +64,53 @@ async function loadLesson() {
   }
 
   document.title = "Mudrika | " + currentLesson.title;
-  currentSignIndex = 0;
+  
+  // 🔥 LOAD SAVED PROGRESS for this lesson
+  currentSignIndex = getSavedProgress(lessonId);
+    
+  console.log(`Loading lesson ${lessonId}, resuming at sign ${currentSignIndex + 1} of ${currentLesson.signs.length}`);
+
   renderSign();
+}
+
+// 🔥 NEW: Save current sign progress
+function saveProgress(lessonId, signIndex) {
+    // Get existing progress or create new object
+    let lessonProgress = JSON.parse(localStorage.getItem("lessonProgress") || "{}");
+    
+    // Save which sign we're on for this lesson
+    lessonProgress[lessonId] = {
+        signIndex: signIndex,
+        lastUpdated: new Date().toISOString()
+    };
+    
+    localStorage.setItem("lessonProgress", JSON.stringify(lessonProgress));
+    console.log(`Progress saved for ${lessonId}: sign ${signIndex + 1}`);
+}
+
+// 🔥 NEW: Get saved progress for a lesson
+function getSavedProgress(lessonId) {
+    const lessonProgress = JSON.parse(localStorage.getItem("lessonProgress") || "{}");
+    
+    // Check if we have saved progress for this lesson
+    if (lessonProgress[lessonId]) {
+        const savedIndex = lessonProgress[lessonId].signIndex;
+        
+        // Make sure the saved index is valid (not beyond total signs)
+        if (currentLesson && savedIndex < currentLesson.signs.length) {
+            return savedIndex;
+        }
+    }
+    
+    // Also check if lesson is already completed
+    const completedLessons = JSON.parse(localStorage.getItem("completedLessons") || "[]");
+    if (completedLessons.includes(lessonId)) {
+        // If lesson is completed, start from beginning (they might want to review)
+        return 0;
+    }
+    
+    // Default: start from beginning
+    return 0;
 }
 
 function renderSign() {
@@ -73,9 +118,13 @@ function renderSign() {
   const total = currentLesson.signs.length;
   const container = document.getElementById("lessonContent");
 
+  // Check if lesson is completed
+  const completedLessons = JSON.parse(localStorage.getItem("completedLessons") || "[]");
+  const isCompleted = completedLessons.includes(currentLesson.id);
+
   container.innerHTML = `
     <h2 style="font-family:'Cinzel',serif;">${currentLesson.title}</h2>
-    <p style="color:#6B5044;font-size:0.9rem;">Sign ${currentSignIndex + 1} of ${total}</p>
+    <p style="color:#6B5044;font-size:0.9rem;">${isCompleted ? '✅ Completed! ' : ''} Sign ${currentSignIndex + 1} of ${total}</p>
 
     <!-- Progress bar -->
     <div style="width:60%;margin:0 auto 20px;background:#D8BFA8;border-radius:20px;height:10px;">
@@ -110,6 +159,20 @@ function renderSign() {
         : '<button onclick="completeLesson()" style="background:#4CAF50;">Complete Lesson ✓</button>'
       }
     </div>
+    <!-- Resume button (show if not at last sign and not completed) -->
+    ${!isCompleted && currentSignIndex > 0 && currentSignIndex < total - 1 ? `
+        <div style="margin-top:20px;">
+            <button onclick="resetLesson()" style="background:#888;">Restart Lesson</button>
+        </div>
+    ` : ""}
+
+    <!-- Review message for completed lessons -->
+    ${isCompleted ? `
+        <div style="margin-top:20px;padding:15px;background:#e8f5e9;border-radius:10px;">
+            <p style="color:#2e7d32;margin:0;">✨ You've already completed this lesson! ✨</p>
+            <button onclick="resetLesson()" style="background:#C65A3A;margin-top:10px;">Review All Signs</button>
+        </div>
+    ` : ""}
   `;
 }
 
@@ -118,6 +181,8 @@ function nextSign() {
     currentSignIndex++;
     renderSign();
     window.scrollTo({ top: 0, behavior: "smooth" });
+    // 🔥 SAVE PROGRESS after moving to next sign
+    saveProgress(currentLesson.id, currentSignIndex);
   }
 }
 
@@ -126,7 +191,25 @@ function prevSign() {
     currentSignIndex--;
     renderSign();
     window.scrollTo({ top: 0, behavior: "smooth" });
+    // 🔥 SAVE PROGRESS after moving to previous sign
+    saveProgress(currentLesson.id, currentSignIndex);
   }
+}
+
+// 🔥 NEW: Reset lesson progress (start from beginning)
+function resetLesson() {
+    if (confirm("Restart this lesson from the beginning? Your progress will be reset.")) {
+        currentSignIndex = 0;
+        // Clear saved progress for this lesson
+        let lessonProgress = JSON.parse(localStorage.getItem("lessonProgress") || "{}");
+        delete lessonProgress[currentLesson.id];
+        localStorage.setItem("lessonProgress", JSON.stringify(lessonProgress));
+        
+        renderSign();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        
+        showToast("Lesson restarted from beginning!");
+    }
 }
 
 async function completeLesson() {
@@ -190,12 +273,59 @@ async function completeLesson() {
       });
   }
 
+   // 🔥 Clear progress for this lesson (since it's completed)
+  let lessonProgress = JSON.parse(localStorage.getItem("lessonProgress") || "{}");
+  delete lessonProgress[lessonId];
+  localStorage.setItem("lessonProgress", JSON.stringify(lessonProgress));
+
+  // 🔥 Save to Firestore if available
+  if (userId && !isGuest && typeof saveUserProgress !== 'undefined') {
+      await saveUserProgress(userId, {
+          completedLessons: completed,
+          totalXP: parseInt(localStorage.getItem("totalXP") || "0"),
+          xp: parseInt(localStorage.getItem("xp") || "0"),
+          streak: parseInt(localStorage.getItem("streak") || "0"),
+          lessonScores: scores
+      });
+  }
+
   // Completion alert (merged)
-  alert("🎉 Lesson completed! +" + lessonXP + " XP");
+  showToast("🎉 Lesson completed! +" + lessonXP + " XP");
 
   // Redirect to quiz
   const quizId = lessonId.replace("lesson", "quiz");
-  window.location.href = "quiz.html?id=" + quizId;
+  setTimeout(() => {
+        window.location.href = "quiz.html?id=" + quizId;
+  }, 1500);
+}
+
+// Toast notification helper
+function showToast(msg) {
+    let toast = document.getElementById("lesson-toast");
+    if (!toast) {
+        toast = document.createElement("div");
+        toast.id = "lesson-toast";
+        toast.style.cssText = `
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #3A2E2A;
+            color: #FFF9F2;
+            padding: 12px 26px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.4s;
+        `;
+        document.body.appendChild(toast);
+    }
+    toast.textContent = msg;
+    toast.style.opacity = "1";
+    setTimeout(() => {
+        toast.style.opacity = "0";
+    }, 2000);
 }
 
 // Wire up the "Mark as Complete" button if present
