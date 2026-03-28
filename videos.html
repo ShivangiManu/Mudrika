@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mudrika - Video Lectures</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <img src="assets/logo.png" alt="Mudrika Logo" style="height:45px; border-radius:50%;">
+      <h2 style="margin:0; color:#FFFFFF;">Mudrika</h2>
+    </div>
+    <div>
+      <a href="progress.html" class="nav-btn">Progress</a>
+      <a href="videos.html" class="nav-btn">Video Lectures</a>
+      <a href="login.html" class="nav-btn">Login</a>
+      <a href="signup.html" class="nav-btn">Sign Up</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <h2>Video Lectures</h2>
+    <p style="color:#6B5044;">Watch and learn Indian Sign Language through videos</p>
+  </section>
+
+  <div id="videoContainer" style="
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    padding: 40px;
+  "></div>
+
+  <script src="js/videos.js"></script>
+</body>
+</html>
