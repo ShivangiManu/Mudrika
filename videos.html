@@ -4,10 +4,12 @@
   <meta charset="UTF-8">
   <title>Mudrika - Video Lectures</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
+  <!-- NAVBAR -->
   <nav class="navbar">
     <div style="display:flex; align-items:center; gap:10px;">
       <img src="assets/logo.png" alt="Mudrika Logo" style="height:45px; border-radius:50%;">
@@ -21,18 +23,130 @@
     </div>
   </nav>
 
-  <section class="hero">
-    <h2>Video Lectures</h2>
-    <p style="color:#6B5044;">Watch and learn Indian Sign Language through videos</p>
+  <!-- HERO -->
+  <section class="hero" style="padding-bottom: 20px;">
+    <h2>ISL Video Dictionary</h2>
+    <p style="color:#6B5044; max-width:500px; margin:0 auto;">
+      Browse Indian Sign Language signs by letter. Click any word to watch the sign video.
+    </p>
+
+    <!-- Search bar -->
+    <div style="margin-top: 20px;">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search a word... e.g. Apple"
+        oninput="searchWords()"
+        style="
+          width: 100%;
+          max-width: 400px;
+          padding: 12px 20px;
+          border-radius: 25px;
+          border: 2px solid #D8BFA8;
+          font-size: 1rem;
+          font-family: 'Poppins', sans-serif;
+          background: #FFF9F2;
+          outline: none;
+        "
+      >
+    </div>
+
+    <!-- Letter jump links -->
+    <div style="margin-top: 20px; display:flex; flex-wrap:wrap; justify-content:center; gap:8px;">
+      <span style="font-size:0.85rem; color:#6B5044; align-self:center;">Jump to:</span>
+      <script>
+        // Render letter links immediately
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").forEach(l => {
+          document.write(`<a href="#section-${l}" style="
+            background:#FFF9F2;
+            border:2px solid #D8BFA8;
+            color:#C65A3A;
+            font-weight:700;
+            padding:4px 10px;
+            border-radius:10px;
+            text-decoration:none;
+            font-size:0.85rem;
+            font-family:'Poppins',sans-serif;
+          ">${l}</a>`);
+        });
+      </script>
+    </div>
   </section>
 
-  <div id="videoContainer" style="
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
-    padding: 40px;
-  "></div>
+  <!-- WORDS CONTAINER -->
+  <div id="videoWordsContainer" style="padding: 20px 40px 60px;"></div>
+
+  <!-- Search results container (hidden by default) -->
+  <div id="searchResults" style="display:none; padding: 0 40px 60px;"></div>
+
+<script>
+// Search function — defined before videos.js loads
+function searchWords() {
+  const query = document.getElementById("searchInput").value.trim().toLowerCase();
+  const mainContainer = document.getElementById("videoWordsContainer");
+  const searchContainer = document.getElementById("searchResults");
+
+  if (!query) {
+    mainContainer.style.display = "block";
+    searchContainer.style.display = "none";
+    searchContainer.innerHTML = "";
+    return;
+  }
+
+  mainContainer.style.display = "none";
+  searchContainer.style.display = "block";
+  searchContainer.innerHTML = "";
+
+  // Search through all letters
+  let found = [];
+  Object.keys(videoData).forEach(letter => {
+    videoData[letter].forEach(item => {
+      if (item.word.toLowerCase().includes(query)) {
+        found.push(item);
+      }
+    });
+  });
+
+  if (found.length === 0) {
+    searchContainer.innerHTML = `<p style="text-align:center;color:#6B5044;">No results found for "<strong>${query}</strong>"</p>`;
+    return;
+  }
+
+  const heading = document.createElement("p");
+  heading.style.cssText = "color:#6B5044;font-size:0.9rem;margin-bottom:16px;";
+  heading.textContent = `${found.length} result(s) for "${query}"`;
+  searchContainer.appendChild(heading);
+
+  const grid = document.createElement("div");
+  found.forEach(item => {
+    const chip = document.createElement("button");
+    chip.textContent = item.word;
+    chip.style.cssText = "background:#FFF9F2;color:#3A2E2A;border:2px solid #D8BFA8;padding:8px 18px;border-radius:20px;font-family:'Poppins',sans-serif;font-size:0.9rem;cursor:pointer;margin:6px;transition:all 0.2s ease;";
+    chip.onmouseover = () => { chip.style.background="#C65A3A"; chip.style.color="#fff"; chip.style.borderColor="#C65A3A"; };
+    chip.onmouseout  = () => { chip.style.background="#FFF9F2"; chip.style.color="#3A2E2A"; chip.style.borderColor="#D8BFA8"; };
+    chip.onclick = () => openModal(item.word, item.id);
+    grid.appendChild(chip);
+  });
+  searchContainer.appendChild(grid);
+}
+</script>
 
   <script src="js/videos.js"></script>
+
+  <!-- Add anchor IDs to each letter section after videos.js renders them -->
+  <script>
+    window.addEventListener("load", () => {
+      Object.keys(videoData).forEach(letter => {
+        const sections = document.querySelectorAll("#videoWordsContainer > div");
+        sections.forEach(sec => {
+          const heading = sec.querySelector("h2");
+          if (heading && heading.textContent.trim() === letter) {
+            sec.id = "section-" + letter;
+          }
+        });
+      });
+    });
+  </script>
+
 </body>
 </html>
