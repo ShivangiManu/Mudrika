@@ -129,9 +129,13 @@ function prevSign() {
   }
 }
 
-function completeLesson() {
+async function completeLesson() {
   const lessonId = currentLesson.id;
   const lessonXP = currentLesson.xp || 10;
+
+  // Get current user
+  const userId = localStorage.getItem('mudrika_user_id');
+  const isGuest = localStorage.getItem('mudrika_current_user') === 'guest';
 
   // completedLessons array (original)
   const completed = JSON.parse(localStorage.getItem("completedLessons") || "[]");
@@ -161,12 +165,30 @@ function completeLesson() {
     // Streak tracking (merged)
     const streak = Number(localStorage.getItem("streak")) || 0;
     localStorage.setItem("streak", streak + 1);
+
+    // Save to Firestore if not guest
+    if (userId && !isGuest && typeof saveLessonCompletion !== 'undefined') {
+      await saveLessonCompletion(userId, lessonId, lessonXP);
+       console.log("Lesson saved to Firestore");
+    }
+
   }
 
   // Lesson scores for progress page
   const scores = JSON.parse(localStorage.getItem("lessonScores") || "{}");
   scores[lessonId] = { completed: true, xp: lessonXP, title: currentLesson.title };
   localStorage.setItem("lessonScores", JSON.stringify(scores));
+
+  //Save quiz scores to Firestore if available
+  if (userId && !isGuest && typeof saveUserProgress !== 'undefined') {
+      await saveUserProgress(userId, {
+          completedLessons: completed,
+          totalXP: parseInt(localStorage.getItem("totalXP") || "0"),
+          xp: parseInt(localStorage.getItem("xp") || "0"),
+          streak: parseInt(localStorage.getItem("streak") || "0"),
+          lessonScores: scores
+      });
+  }
 
   // Completion alert (merged)
   alert("🎉 Lesson completed! +" + lessonXP + " XP");

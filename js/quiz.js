@@ -124,7 +124,7 @@ function selectAnswer(qid, value, input) {
   });
 }
 
-function submitQuiz() {
+async function submitQuiz() {
   if (!quizData) return;
 
   let score = 0;
@@ -186,6 +186,22 @@ function submitQuiz() {
   // Keep totalXP in sync (original)
   const totalXP = parseInt(localStorage.getItem("totalXP") || "0");
   localStorage.setItem("totalXP", totalXP + 5);
+
+  //Save to Firestore if user is logged in
+  const userId = localStorage.getItem('mudrika_user_id');
+  const isGuest = localStorage.getItem('mudrika_current_user') === 'guest';
+  
+  if (userId && !isGuest && typeof saveQuizScore !== 'undefined') {
+        await saveQuizScore(userId, quizData.id, score, total);
+        console.log("Quiz score saved to Firestore");
+        
+        // Also save overall progress
+        await saveUserProgress(userId, {
+            quizScores: quizScores,
+            totalXP: parseInt(localStorage.getItem("totalXP") || "0"),
+            xp: parseInt(localStorage.getItem("xp") || "0")
+        });
+  }
 
   // Completion alert with score (merged)
   alert("Quiz completed! Score: " + score + " / " + total + " (" + pct + "%)");

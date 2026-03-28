@@ -20,11 +20,17 @@ if (typeof firebase !== 'undefined') {
   
   // Get authentication instance
   const auth = firebase.auth();
+
+   // 🔥 Get Firestore instance 🔥
+  const db = firebase.firestore();
   
   // Make auth available globally
   window.auth = auth;
+  window.db = db;
   
   console.log("Firebase initialized successfully!");
+  console.log("Firestore available:", !!db);
 } else {
   console.error("Firebase SDK not loaded! Check your script tags.");
 }
+

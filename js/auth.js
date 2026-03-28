@@ -152,7 +152,7 @@ async function signup() {
         }
     }
     
-    console.log("Signup attempt for:", email);
+    //console.log("Signup attempt for:", email);
     
     // Validation
     if (!username || !email || !password) {
@@ -180,6 +180,7 @@ async function signup() {
         localStorage.setItem('mudrika_user_id', user.uid);
         
         // Initialize user progress
+        /*
         if (!localStorage.getItem('completedLessons')) {
             localStorage.setItem('completedLessons', JSON.stringify([]));
         }
@@ -192,6 +193,27 @@ async function signup() {
         if (!localStorage.getItem('streak')) {
             localStorage.setItem('streak', '0');
         }
+        */
+        
+        // Initialize user progress
+        const initialProgress = {
+            completedLessons: [],
+            totalXP: 0,
+            xp: 0,
+            streak: 0,
+            quizScores: {},
+            lessonScores: {}
+        };
+        
+        localStorage.setItem('completedLessons', JSON.stringify(initialProgress.completedLessons));
+        localStorage.setItem('totalXP', initialProgress.totalXP.toString());
+        localStorage.setItem('xp', initialProgress.xp.toString());
+        localStorage.setItem('streak', initialProgress.streak.toString());
+        localStorage.setItem('quizScores', JSON.stringify(initialProgress.quizScores));
+        localStorage.setItem('lessonScores', JSON.stringify(initialProgress.lessonScores));
+        
+        // 🔥 Save to Firestore
+        await saveUserProgress(user.uid, initialProgress);
         
         showMsg("Account created successfully! Redirecting...", "success");
         
@@ -246,7 +268,7 @@ async function login() {
         }
     }
     
-    console.log("Login attempt for:", email);
+    //console.log("Login attempt for:", email);
     
     // Validation
     if (!email || !password) {
@@ -264,6 +286,8 @@ async function login() {
         
         console.log("User logged in:", user.uid);
         
+        await syncProgressWithFirestore(user.uid);
+
         // Get username (from localStorage or use email prefix)
         const username = localStorage.getItem('mudrika_username') || email.split('@')[0];
         
@@ -287,6 +311,82 @@ async function login() {
             errorMessage = "Please enter a valid email address.";
         } else if (error.code === 'auth/too-many-requests') {
             errorMessage = "Too many failed attempts. Please try again later.";
+        } else {
+            errorMessage += error.message;
+        }
+        
+        showMsg(errorMessage, "error");
+    }
+}
+
+// Update the Google Sign-In function to sync with Firestore
+async function loginWithGoogle() {
+    console.log("Google Sign-In called");
+    
+    try {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope('profile');
+        provider.addScope('email');
+        
+        showMsg("Opening Google Sign-In...", "success");
+        
+        const result = await auth.signInWithPopup(provider);
+        const user = result.user;
+        
+        console.log("Google Sign-In successful:", user.email);
+        
+        let username = user.displayName;
+        if (!username) {
+            username = user.email.split('@')[0];
+        }
+        
+        localStorage.setItem('mudrika_username', username);
+        localStorage.setItem('mudrika_user_id', user.uid);
+        localStorage.setItem('mudrika_user_email', user.email);
+        
+        // 🔥 Sync with Firestore
+        const firestoreData = await loadUserProgress(user.uid);
+        
+        if (!firestoreData) {
+            // New user - initialize progress
+            const initialProgress = {
+                completedLessons: [],
+                totalXP: 0,
+                xp: 0,
+                streak: 0,
+                quizScores: {},
+                lessonScores: {}
+            };
+            
+            localStorage.setItem('completedLessons', JSON.stringify(initialProgress.completedLessons));
+            localStorage.setItem('totalXP', initialProgress.totalXP.toString());
+            localStorage.setItem('xp', initialProgress.xp.toString());
+            localStorage.setItem('streak', initialProgress.streak.toString());
+            localStorage.setItem('quizScores', JSON.stringify(initialProgress.quizScores));
+            localStorage.setItem('lessonScores', JSON.stringify(initialProgress.lessonScores));
+            
+            await saveUserProgress(user.uid, initialProgress);
+        } else {
+            // Existing user - load progress
+            await syncProgressWithFirestore(user.uid);
+        }
+        
+        showMsg("Welcome, " + username + "!", "success");
+        
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 1500);
+        
+    } catch (error) {
+        console.error("Google Sign-In error:", error);
+        
+        let errorMessage = "Google Sign-In failed. ";
+        if (error.code === 'auth/popup-closed-by-user') {
+            errorMessage = "Sign-in popup was closed. Please try again.";
+        } else if (error.code === 'auth/popup-blocked') {
+            errorMessage = "Pop-up was blocked. Please allow pop-ups for this site.";
+        } else if (error.code === 'auth/unauthorized-domain') {
+            errorMessage = "This domain is not authorized. Please check Firebase settings.";
         } else {
             errorMessage += error.message;
         }
@@ -426,3 +526,44 @@ function showMsg(msg, type) {
         if (el) el.textContent = "";
     }, 3000);
 }
+// ============================================
+// FORGOT PASSWORD FUNCTION
+// ============================================
+async function forgotPassword() {
+    console.log("Forgot password called");
+    
+    // Ask for email
+    const email = prompt("Please enter your email address to reset your password:");
+    
+    if (!email) {
+        return; // User cancelled
+    }
+    
+    // Basic email validation
+    if (!email.includes('@') || !email.includes('.')) {
+        showMsg("Please enter a valid email address.", "error");
+        return;
+    }
+    
+    showMsg("Sending password reset email...", "success");
+    
+    try {
+        await auth.sendPasswordResetEmail(email);
+        showMsg("Password reset email sent! Check your inbox.", "success");
+        console.log("Password reset email sent to:", email);
+    } catch (error) {
+        console.error("Password reset error:", error);
+        
+        let errorMessage = "Failed to send reset email. ";
+        if (error.code === 'auth/user-not-found') {
+            errorMessage = "No account found with this email address.";
+        } else if (error.code === 'auth/invalid-email') {
+            errorMessage = "Please enter a valid email address.";
+        } else {
+            errorMessage += error.message;
+        }
+        
+        showMsg(errorMessage, "error");
+    }
+}
+
