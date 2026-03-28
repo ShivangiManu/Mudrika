@@ -1,9 +1,3 @@
-// ============================================================
-// videos.js  -  Mudrika Video Lectures
-// Displays all ISL words grouped by letter
-// Click any word to open video in a modal popup
-// ============================================================
-
 const videoData = {
   A: [
     { word: "Apple", id: "nuYcIMq8e5U" },
@@ -189,130 +183,138 @@ const videoData = {
   ]
 };
 
-// ── Build the page ─────────────────────────────────────────
+// Build the page - runs immediately when script loads
 const mainContainer = document.getElementById("videoWordsContainer");
 
-Object.keys(videoData).forEach(letter => {
-  // Letter heading
-  const section = document.createElement("div");
-  section.style.cssText = "margin-bottom: 40px;";
+Object.keys(videoData).forEach(function(letter) {
+  var section = document.createElement("div");
+  section.id = "section-" + letter;
+  section.style.marginBottom = "40px";
+  section.style.scrollMarginTop = "80px";
 
-  section.innerHTML = `
-    <h2 style="
-      font-family: 'Cinzel', serif;
-      color: #C65A3A;
-      font-size: 1.8rem;
-      border-bottom: 2px solid #F2B36D;
-      padding-bottom: 8px;
-      margin-bottom: 16px;
-    ">${letter}</h2>
-    <div class="word-grid" id="grid-${letter}"></div>
-  `;
+  var heading = document.createElement("h2");
+  heading.textContent = letter;
+  heading.style.fontFamily = "Cinzel, serif";
+  heading.style.color = "#C65A3A";
+  heading.style.fontSize = "1.8rem";
+  heading.style.borderBottom = "2px solid #F2B36D";
+  heading.style.paddingBottom = "8px";
+  heading.style.marginBottom = "16px";
+  section.appendChild(heading);
 
-  mainContainer.appendChild(section);
+  var grid = document.createElement("div");
+  grid.style.display = "flex";
+  grid.style.flexWrap = "wrap";
+  grid.style.gap = "10px";
+  grid.style.marginBottom = "10px";
 
-  // Word chips
-  const grid = section.querySelector(`#grid-${letter}`);
-  videoData[letter].forEach(item => {
-    const chip = document.createElement("button");
+  videoData[letter].forEach(function(item) {
+    var chip = document.createElement("button");
     chip.textContent = item.word;
-    chip.style.cssText = `
-      background: #FFF9F2;
-      color: #3A2E2A;
-      border: 2px solid #D8BFA8;
-      padding: 8px 18px;
-      border-radius: 20px;
-      font-family: 'Poppins', sans-serif;
-      font-size: 0.9rem;
-      cursor: pointer;
-      margin: 6px;
-      transition: all 0.2s ease;
-    `;
-    chip.onmouseover = () => {
+    chip.style.background = "#FFF9F2";
+    chip.style.color = "#3A2E2A";
+    chip.style.border = "2px solid #D8BFA8";
+    chip.style.padding = "8px 18px";
+    chip.style.borderRadius = "20px";
+    chip.style.fontFamily = "Poppins, sans-serif";
+    chip.style.fontSize = "0.9rem";
+    chip.style.cursor = "pointer";
+    chip.style.transition = "all 0.2s ease";
+
+    chip.onmouseover = function() {
       chip.style.background = "#C65A3A";
       chip.style.color = "#fff";
       chip.style.borderColor = "#C65A3A";
     };
-    chip.onmouseout = () => {
+    chip.onmouseout = function() {
       chip.style.background = "#FFF9F2";
       chip.style.color = "#3A2E2A";
       chip.style.borderColor = "#D8BFA8";
     };
-    chip.onclick = () => openModal(item.word, item.id);
+    chip.onclick = function() {
+      openModal(item.word, item.id);
+    };
+
     grid.appendChild(chip);
   });
+
+  section.appendChild(grid);
+  mainContainer.appendChild(section);
 });
 
-// ── Modal ──────────────────────────────────────────────────
+// Modal open
 function openModal(word, youtubeId) {
-  // Remove existing modal if any
-  const existing = document.getElementById("videoModal");
+  var existing = document.getElementById("videoModal");
   if (existing) existing.remove();
 
-  const modal = document.createElement("div");
+  var modal = document.createElement("div");
   modal.id = "videoModal";
-  modal.style.cssText = `
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.75);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    padding: 20px;
-  `;
+  modal.style.position = "fixed";
+  modal.style.inset = "0";
+  modal.style.background = "rgba(0,0,0,0.75)";
+  modal.style.display = "flex";
+  modal.style.justifyContent = "center";
+  modal.style.alignItems = "center";
+  modal.style.zIndex = "9999";
+  modal.style.padding = "20px";
 
-  modal.innerHTML = `
-    <div style="
-      background: #FFF9F2;
-      border-radius: 20px;
-      padding: 24px;
-      max-width: 680px;
-      width: 100%;
-      position: relative;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-    ">
-      <!-- Close button -->
-      <button onclick="closeModal()" style="
-        position: absolute;
-        top: 14px;
-        right: 16px;
-        background: #C65A3A;
-        color: white;
-        border: none;
-        border-radius: 50%;
-        width: 32px;
-        height: 32px;
-        font-size: 1.1rem;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        line-height: 1;
-      ">✕</button>
+  var box = document.createElement("div");
+  box.style.background = "#FFF9F2";
+  box.style.borderRadius = "20px";
+  box.style.padding = "24px";
+  box.style.maxWidth = "680px";
+  box.style.width = "100%";
+  box.style.position = "relative";
+  box.style.boxShadow = "0 20px 60px rgba(0,0,0,0.4)";
 
-      <!-- Word title -->
-      <h2 style="
-        font-family: 'Cinzel', serif;
-        color: #C65A3A;
-        margin: 0 0 16px;
-        font-size: 1.5rem;
-      ">${word}</h2>
+  var closeBtn = document.createElement("button");
+  closeBtn.textContent = "X";
+  closeBtn.style.position = "absolute";
+  closeBtn.style.top = "14px";
+  closeBtn.style.right = "16px";
+  closeBtn.style.background = "#C65A3A";
+  closeBtn.style.color = "white";
+  closeBtn.style.border = "none";
+  closeBtn.style.borderRadius = "50%";
+  closeBtn.style.width = "32px";
+  closeBtn.style.height = "32px";
+  closeBtn.style.fontSize = "0.9rem";
+  closeBtn.style.cursor = "pointer";
+  closeBtn.onclick = closeModal;
 
-      <!-- Video embed -->
-      <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;">
-        <iframe
-          src="https://www.youtube.com/embed/${youtubeId}?autoplay=1"
-          style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;border-radius:12px;"
-          allow="autoplay; encrypted-media"
-          allowfullscreen>
-        </iframe>
-      </div>
-    </div>
-  `;
+  var title = document.createElement("h2");
+  title.textContent = word;
+  title.style.fontFamily = "Cinzel, serif";
+  title.style.color = "#C65A3A";
+  title.style.margin = "0 0 16px";
+  title.style.fontSize = "1.5rem";
 
-  // Click outside to close
-  modal.addEventListener("click", (e) => {
+  var videoWrapper = document.createElement("div");
+  videoWrapper.style.position = "relative";
+  videoWrapper.style.paddingBottom = "56.25%";
+  videoWrapper.style.height = "0";
+  videoWrapper.style.overflow = "hidden";
+  videoWrapper.style.borderRadius = "12px";
+
+  var iframe = document.createElement("iframe");
+  iframe.src = "https://www.youtube.com/embed/" + youtubeId + "?autoplay=1";
+  iframe.style.position = "absolute";
+  iframe.style.top = "0";
+  iframe.style.left = "0";
+  iframe.style.width = "100%";
+  iframe.style.height = "100%";
+  iframe.style.border = "none";
+  iframe.style.borderRadius = "12px";
+  iframe.allow = "autoplay; encrypted-media";
+  iframe.allowFullscreen = true;
+
+  videoWrapper.appendChild(iframe);
+  box.appendChild(closeBtn);
+  box.appendChild(title);
+  box.appendChild(videoWrapper);
+  modal.appendChild(box);
+
+  modal.addEventListener("click", function(e) {
     if (e.target === modal) closeModal();
   });
 
@@ -320,11 +322,62 @@ function openModal(word, youtubeId) {
 }
 
 function closeModal() {
-  const modal = document.getElementById("videoModal");
+  var modal = document.getElementById("videoModal");
   if (modal) modal.remove();
 }
 
-// Close with Escape key
-document.addEventListener("keydown", (e) => {
+document.addEventListener("keydown", function(e) {
   if (e.key === "Escape") closeModal();
 });
+
+// Search
+function searchWords() {
+  var query = document.getElementById("searchInput").value.trim().toLowerCase();
+  var mainDiv = document.getElementById("videoWordsContainer");
+  var searchDiv = document.getElementById("searchResults");
+
+  if (!query) {
+    mainDiv.style.display = "block";
+    searchDiv.style.display = "none";
+    searchDiv.innerHTML = "";
+    return;
+  }
+
+  mainDiv.style.display = "none";
+  searchDiv.style.display = "block";
+  searchDiv.innerHTML = "";
+
+  var found = [];
+  Object.keys(videoData).forEach(function(letter) {
+    videoData[letter].forEach(function(item) {
+      if (item.word.toLowerCase().includes(query)) {
+        found.push(item);
+      }
+    });
+  });
+
+  if (found.length === 0) {
+    searchDiv.innerHTML = "<p style='text-align:center;color:#6B5044;'>No results found for <strong>" + query + "</strong></p>";
+    return;
+  }
+
+  var info = document.createElement("p");
+  info.style.cssText = "color:#6B5044;font-size:0.9rem;margin-bottom:16px;";
+  info.textContent = found.length + " result(s) found";
+  searchDiv.appendChild(info);
+
+  var grid = document.createElement("div");
+  grid.style.cssText = "display:flex;flex-wrap:wrap;gap:10px;";
+
+  found.forEach(function(item) {
+    var chip = document.createElement("button");
+    chip.textContent = item.word;
+    chip.style.cssText = "background:#FFF9F2;color:#3A2E2A;border:2px solid #D8BFA8;padding:8px 18px;border-radius:20px;font-family:'Poppins',sans-serif;font-size:0.9rem;cursor:pointer;";
+    chip.onmouseover = function() { chip.style.background="#C65A3A"; chip.style.color="#fff"; };
+    chip.onmouseout  = function() { chip.style.background="#FFF9F2"; chip.style.color="#3A2E2A"; };
+    chip.onclick = function() { openModal(item.word, item.id); };
+    grid.appendChild(chip);
+  });
+
+  searchDiv.appendChild(grid);
+}
