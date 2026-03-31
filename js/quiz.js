@@ -192,15 +192,23 @@ async function submitQuiz() {
   const isGuest = localStorage.getItem('mudrika_current_user') === 'guest';
   
   if (userId && !isGuest && typeof saveQuizScore !== 'undefined') {
-        await saveQuizScore(userId, quizData.id, score, total);
-        console.log("Quiz score saved to Firestore");
-        
-        // Also save overall progress
-        await saveUserProgress(userId, {
-            quizScores: quizScores,
-            totalXP: parseInt(localStorage.getItem("totalXP") || "0"),
-            xp: parseInt(localStorage.getItem("xp") || "0")
-        });
+          try {
+          await saveQuizScore(userId, quizData.id, score, total);
+          console.log("Quiz score saved to Firestore");
+          
+          // Also save overall progress
+          await saveUserProgress(userId, {
+              quizScores: quizScores,
+              totalXP: parseInt(localStorage.getItem("totalXP") || "0"),
+              xp: parseInt(localStorage.getItem("xp") || "0")
+          });
+          console.log("Overall progress saved to Firestore");
+      } catch (error) {
+          console.error("Firestore save failed, but data saved locally:", error);
+          // Don't show error to user - data is saved locally
+      }
+  } else {
+      console.log("Quiz score saved to localStorage only (guest or no Firestore)");
   }
 
   // Completion alert with score (merged)

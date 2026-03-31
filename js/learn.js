@@ -44,6 +44,16 @@ if (completeBtn) {
 let currentLesson = null;
 let currentSignIndex = 0;
 
+// Update the quiz link based on current lesson
+function updateQuizLink() {
+    const quizLink = document.getElementById("quizLink");
+    if (quizLink && currentLesson) {
+        const quizId = currentLesson.id.replace("lesson", "quiz");
+        quizLink.href = "quiz.html?id=" + quizId;
+        console.log("Quiz link set to:", quizLink.href);
+    }
+}
+
 async function loadLesson() {
   const params = new URLSearchParams(window.location.search);
   const lessonId = params.get("id") || "lesson-1";
@@ -65,6 +75,13 @@ async function loadLesson() {
 
   document.title = "Mudrika | " + currentLesson.title;
   
+   // 🔥 ADD THESE TWO LINES RIGHT HERE 🔥
+  console.log("Current lesson ID:", currentLesson.id);
+  console.log("Quiz link should be: quiz.html?id=" + currentLesson.id.replace("lesson", "quiz"));
+  
+   // 🔥 UPDATE QUIZ LINK HERE
+  updateQuizLink();
+
   // 🔥 LOAD SAVED PROGRESS for this lesson
   currentSignIndex = getSavedProgress(lessonId);
     
@@ -294,6 +311,7 @@ async function completeLesson() {
 
   // Redirect to quiz
   const quizId = lessonId.replace("lesson", "quiz");
+  console.log("Redirecting to quiz:", quizId);
   setTimeout(() => {
         window.location.href = "quiz.html?id=" + quizId;
   }, 1500);

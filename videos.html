@@ -16,8 +16,7 @@
   <div>
     <a href="index.html" class="nav-btn">Home</a>
     <a href="progress.html" class="nav-btn">Progress</a>
-    <a href="login.html" class="nav-btn">Login</a>
-    <a href="signup.html" class="nav-btn">Sign Up</a>
+    <span id="userDisplay" style="color:white; margin-right:10px;"></span>
   </div>
 </nav>
 
@@ -50,6 +49,7 @@
 </div>
 
 <script>
+/*
 var videoData = {
   A: [
     {word:"Apple",id:"nuYcIMq8e5U"},
@@ -234,6 +234,7 @@ var videoData = {
     {word:"Zipper",id:"QMFllz8bqbI"}
   ]
 };
+*/
 
 // Build letter sections
 var container = document.getElementById("videoWordsContainer");
@@ -340,6 +341,50 @@ function searchWords() {
     searchDiv.appendChild(btn);
   });
 }
+</script>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/video.js"></script>
+
+
+<script>
+// Add user display to navbar
+document.addEventListener('DOMContentLoaded', function() {
+    const userDisplay = document.getElementById('userDisplay');
+    const loginLogoutBtn = document.getElementById('loginLogoutBtn');
+    const signupBtn = document.getElementById('signupBtn');
+    
+    if (typeof auth !== 'undefined') {
+        auth.onAuthStateChanged(function(user) {
+            if (user) {
+                const username = localStorage.getItem('mudrika_username') || user.email.split('@')[0];
+                if (userDisplay) userDisplay.innerHTML = username;
+                if (loginLogoutBtn) {
+                    loginLogoutBtn.innerHTML = 'Logout';
+                    loginLogoutBtn.href = '#';
+                    loginLogoutBtn.onclick = function(e) {
+                        e.preventDefault();
+                        if (typeof logout !== 'undefined') logout();
+                    };
+                }
+                if (signupBtn) signupBtn.style.display = 'none';
+            } else {
+                const guestName = localStorage.getItem('mudrika_username');
+                if (userDisplay) userDisplay.innerHTML = guestName === 'Guest User' ? 'Guest' : '';
+                if (loginLogoutBtn) {
+                    loginLogoutBtn.innerHTML = 'Login';
+                    loginLogoutBtn.href = 'login.html';
+                    loginLogoutBtn.onclick = null;
+                }
+                if (signupBtn) signupBtn.style.display = 'inline-block';
+            }
+        });
+    }
+});
 </script>
 
 </body>

@@ -286,10 +286,14 @@ async function login() {
         
         console.log("User logged in:", user.uid);
         
-        await syncProgressWithFirestore(user.uid);
+        localStorage.setItem('mudrika_user_id', user.uid);  // <-- ADD THIS
+        localStorage.setItem('mudrika_user_email', user.email);
+
 
         // Get username (from localStorage or use email prefix)
         const username = localStorage.getItem('mudrika_username') || email.split('@')[0];
+        
+        await syncProgressWithFirestore(user.uid);
         
         showMsg("Welcome back, " + username + "!", "success");
         
@@ -343,6 +347,7 @@ async function loginWithGoogle() {
         localStorage.setItem('mudrika_username', username);
         localStorage.setItem('mudrika_user_id', user.uid);
         localStorage.setItem('mudrika_user_email', user.email);
+        console.log("User ID saved to localStorage:", user.uid);
         
         // 🔥 Sync with Firestore
         const firestoreData = await loadUserProgress(user.uid);

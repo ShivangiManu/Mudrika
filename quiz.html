@@ -9,7 +9,12 @@
 
   <nav class="navbar">
     <h2>Mudrika</h2>
-    <a href="index.html" class="nav-btn">Home</a>
+    <div>
+      <a href="index.html" class="nav-btn">Home</a>
+      <a href="videos.html" class="nav-btn">Lectures</a>
+      <a href="progress.html" class="nav-btn">Progress</a>
+      <span id="userDisplay" style="color:white; margin-right:10px;"></span>
+    </div>
   </nav>
 
   <section class="hero" id="quizContainer">
@@ -26,8 +31,44 @@
   <!-- 🔥 ADD FIRESTORE SDK 🔥 -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
   <script src="js/firebase-config.js"></script>
-  <script src="js/firestore-helpers.js"></script>
   <script src="js/auth.js"></script>
+  <script src="js/firestore-helpers.js"></script>
   <script src="js/quiz.js"></script>
+
+  <script>
+  // User display and logout handling
+  document.addEventListener('DOMContentLoaded', function() {
+      const userDisplay = document.getElementById('userDisplay');
+      const loginLogoutBtn = document.getElementById('loginLogoutBtn');
+      const signupBtn = document.getElementById('signupBtn');
+      
+      if (typeof auth !== 'undefined') {
+          auth.onAuthStateChanged(function(user) {
+              if (user) {
+                  const username = localStorage.getItem('mudrika_username') || user.email.split('@')[0];
+                  if (userDisplay) userDisplay.innerHTML = username;
+                  if (loginLogoutBtn) {
+                      loginLogoutBtn.innerHTML = 'Logout';
+                      loginLogoutBtn.href = '#';
+                      loginLogoutBtn.onclick = function(e) {
+                          e.preventDefault();
+                          if (typeof logout !== 'undefined') logout();
+                      };
+                  }
+                  if (signupBtn) signupBtn.style.display = 'none';
+              } else {
+                  const guestName = localStorage.getItem('mudrika_username');
+                  if (userDisplay) userDisplay.innerHTML = guestName === 'Guest User' ? 'Guest' : '';
+                  if (loginLogoutBtn) {
+                      loginLogoutBtn.innerHTML = 'Login';
+                      loginLogoutBtn.href = 'login.html';
+                      loginLogoutBtn.onclick = null;
+                  }
+                  if (signupBtn) signupBtn.style.display = 'inline-block';
+              }
+          });
+      }
+  });
+  </script>
 </body>
 </html>

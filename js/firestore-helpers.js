@@ -10,6 +10,13 @@ async function saveUserProgress(userId, progressData) {
     }
     
     try {
+
+        // Check if db is available
+        if (typeof db === 'undefined') {
+            console.warn("Firestore not available - saving to localStorage only");
+            return false;
+        }
+
         const userRef = db.collection('users').doc(userId);
         await userRef.set({
             ...progressData,
@@ -52,6 +59,7 @@ async function loadUserProgress(userId) {
 async function syncProgressWithFirestore(userId) {
     if (!userId || userId === 'guest') return;
     
+    
     // First, load from Firestore
     const firestoreData = await loadUserProgress(userId);
     
@@ -84,6 +92,12 @@ async function saveQuizScore(userId, quizId, score, total) {
     if (!userId || userId === 'guest') return false;
     
     try {
+
+         if (typeof db === 'undefined') {
+            console.warn("Firestore not available - saving to localStorage only");
+            return false;
+        }
+
         const userRef = db.collection('users').doc(userId);
         const quizScores = {};
         quizScores[quizId] = {
