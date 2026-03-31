@@ -229,6 +229,35 @@ function resetLesson() {
     }
 }
 
+function updateStreak() {
+  const today = new Date().toDateString(); // e.g. "Mon Jan 20 2026"
+  const lastActiveDay = localStorage.getItem("lastActiveDay");
+  let streak = parseInt(localStorage.getItem("streak") || "0");
+ 
+  if (lastActiveDay === today) {
+    // Already logged activity today — do NOT increase streak
+    return;
+  }
+ 
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayStr = yesterday.toDateString();
+ 
+  if (lastActiveDay === yesterdayStr) {
+    // Was active yesterday — continue streak
+    streak += 1;
+  } else if (!lastActiveDay) {
+    // First time ever
+    streak = 1;
+  } else {
+    // Missed a day — reset streak
+    streak = 1;
+  }
+ 
+  localStorage.setItem("streak", streak);
+  localStorage.setItem("lastActiveDay", today);
+}
+
 async function completeLesson() {
   const lessonId = currentLesson.id;
   const lessonXP = currentLesson.xp || 10;
@@ -263,8 +292,9 @@ async function completeLesson() {
     localStorage.setItem("xp", simpleXP + lessonXP);
 
     // Streak tracking (merged)
-    const streak = Number(localStorage.getItem("streak")) || 0;
-    localStorage.setItem("streak", streak + 1);
+    //const streak = Number(localStorage.getItem("streak")) || 0;
+    //localStorage.setItem("streak", streak + 1);
+    updateStreak();
 
     // Save to Firestore if not guest
     if (userId && !isGuest && typeof saveLessonCompletion !== 'undefined') {
