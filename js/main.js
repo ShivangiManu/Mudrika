@@ -73,8 +73,9 @@ window.addEventListener("load", () => {
     const total = text.length;
     text.split("").forEach((char, i) => {
       const span = document.createElement("span");
+      const radius = 50; // distance from center (outside logo)
       span.textContent = char === " " ? "\u00A0" : char;
-      span.style.transform = `rotate(${(360 / total) * i}deg)`;
+      span.style.transform = `rotate(${(360 / total) * i}deg) translate(${radius}px)` + `rotate(90deg)`;
       ringEl.appendChild(span);
     });
   }
