@@ -21,7 +21,7 @@ if (typeof firebase !== 'undefined') {
   // Get authentication instance
   const auth = firebase.auth();
 
-   // 🔥 Get Firestore instance 🔥
+   // Get Firestore instance
   const db = firebase.firestore();
   
   // Make auth available globally

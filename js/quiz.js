@@ -1,57 +1,3 @@
-/*
-let currentLessonId = "lesson1";
-let correctAnswers = [];
-
-fetch("data/lessons.json")
-  .then(res => res.json())
-  .then(data => {
-    const lesson = data.find(l => l.id === currentLessonId);
-    if (!lesson || !lesson.quiz) return;
-
-    const container = document.getElementById("quizContainer");
-    if (!container) return;
-
-    lesson.quiz.forEach((q, index) => {
-      const div = document.createElement("div");
-      div.innerHTML = `
-        <h3>${q.question}</h3>
-        ${q.options.map(opt => `
-          <label>
-            <input type="radio" name="q${index}" value="${opt}">
-            ${opt}
-          </label><br>
-        `).join("")}
-        <br>
-      `;
-      container.appendChild(div);
-    });
-
-    correctAnswers = lesson.quiz.map(q => q.answer);
-  });
-
-function submitQuiz() {
-  let score = 0;
-
-  correctAnswers.forEach((ans, index) => {
-    const selected = document.querySelector(`input[name="q${index}"]:checked`);
-    if (selected && selected.value === ans) {
-      score++;
-    }
-  });
-
-  let quizResults = JSON.parse(localStorage.getItem("quizResults")) || {};
-  quizResults[currentLessonId] = score;
-  localStorage.setItem("quizResults", JSON.stringify(quizResults));
-
-  let xp = Number(localStorage.getItem("xp")) || 0;
-  xp += 5;
-  localStorage.setItem("xp", xp);
-
-  alert(`Quiz completed! Score: ${score}`);
-  window.location.href = "progress.html";
-}
-*/
-
 // Loads a quiz from data/quizzes.json matching ?id=quiz-X
 let quizData = null;
 let userAnswers = {};
@@ -165,7 +111,7 @@ async function submitQuiz() {
   const total = quizData.questions.length;
   const pct = Math.round((score / total) * 100);
 
-  // Save detailed quiz score (original)
+  // Save detailed quiz score 
   const quizScores = JSON.parse(localStorage.getItem("quizScores") || "{}");
   quizScores[quizData.id] = {
     score, total,
@@ -211,10 +157,10 @@ async function submitQuiz() {
       console.log("Quiz score saved to localStorage only (guest or no Firestore)");
   }
 
-  // Completion alert with score (merged)
+  // Completion alert with score 
   alert("Quiz completed! Score: " + score + " / " + total + " (" + pct + "%)");
 
-  // Show result banner (original)
+  // Show result banner 
   const container = document.getElementById("quizContainer");
   const banner = document.createElement("div");
   banner.style.cssText = "background:#FFF9F2;border-radius:20px;padding:30px;max-width:520px;margin:20px auto;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.1);";

@@ -1,45 +1,3 @@
-/*
-let currentLessonId = "lesson1"; // default lesson
-
-fetch("data/lessons.json")
-  .then(res => res.json())
-  .then(lessons => {
-    const lesson = lessons.find(l => l.id === currentLessonId);
-    if (!lesson) return;
-
-    const content = document.getElementById("lessonContent");
-    if (!content) return;
-
-    content.innerHTML = `
-      <h2>${lesson.title}</h2>
-      <p>${lesson.description}</p>
-      <img src="${lesson.gif}" width="300">
-    `;
-  });
-
-const completeBtn = document.getElementById("completeBtn");
-
-if (completeBtn) {
-  completeBtn.addEventListener("click", () => {
-    let progress = JSON.parse(localStorage.getItem("progress")) || {};
-    let xp = Number(localStorage.getItem("xp")) || 0;
-    let streak = Number(localStorage.getItem("streak")) || 0;
-
-    if (!progress[currentLessonId]) {
-      progress[currentLessonId] = true;
-      xp += 10;
-      streak += 1;
-    }
-
-    localStorage.setItem("progress", JSON.stringify(progress));
-    localStorage.setItem("xp", xp);
-    localStorage.setItem("streak", streak);
-
-    alert("🎉 Lesson completed! +10 XP");
-  });
-}
-*/
-
 // Reads ?id=lesson-X from the URL, loads that lesson, shows signs one by one
 let currentLesson = null;
 let currentSignIndex = 0;
@@ -75,14 +33,14 @@ async function loadLesson() {
 
   document.title = "Mudrika | " + currentLesson.title;
   
-   // 🔥 ADD THESE TWO LINES RIGHT HERE 🔥
+   // ADD THESE TWO LINES RIGHT HERE
   console.log("Current lesson ID:", currentLesson.id);
   console.log("Quiz link should be: quiz.html?id=" + currentLesson.id.replace("lesson", "quiz"));
   
-   // 🔥 UPDATE QUIZ LINK HERE
+   // UPDATE QUIZ LINK HERE
   updateQuizLink();
 
-  // 🔥 LOAD SAVED PROGRESS for this lesson
+  // LOAD SAVED PROGRESS for this lesson
   currentSignIndex = getSavedProgress(lessonId);
     
   console.log(`Loading lesson ${lessonId}, resuming at sign ${currentSignIndex + 1} of ${currentLesson.signs.length}`);
@@ -90,7 +48,7 @@ async function loadLesson() {
   renderSign();
 }
 
-// 🔥 NEW: Save current sign progress
+// NEW: Save current sign progress
 function saveProgress(lessonId, signIndex) {
     // Get existing progress or create new object
     let lessonProgress = JSON.parse(localStorage.getItem("lessonProgress") || "{}");
@@ -105,7 +63,7 @@ function saveProgress(lessonId, signIndex) {
     console.log(`Progress saved for ${lessonId}: sign ${signIndex + 1}`);
 }
 
-// 🔥 NEW: Get saved progress for a lesson
+// NEW: Get saved progress for a lesson
 function getSavedProgress(lessonId) {
     const lessonProgress = JSON.parse(localStorage.getItem("lessonProgress") || "{}");
     
@@ -198,7 +156,7 @@ function nextSign() {
     currentSignIndex++;
     renderSign();
     window.scrollTo({ top: 0, behavior: "smooth" });
-    // 🔥 SAVE PROGRESS after moving to next sign
+    // SAVE PROGRESS after moving to next sign
     saveProgress(currentLesson.id, currentSignIndex);
   }
 }
@@ -208,12 +166,12 @@ function prevSign() {
     currentSignIndex--;
     renderSign();
     window.scrollTo({ top: 0, behavior: "smooth" });
-    // 🔥 SAVE PROGRESS after moving to previous sign
+    // SAVE PROGRESS after moving to previous sign
     saveProgress(currentLesson.id, currentSignIndex);
   }
 }
 
-// 🔥 NEW: Reset lesson progress (start from beginning)
+// NEW: Reset lesson progress (start from beginning)
 function resetLesson() {
     if (confirm("Restart this lesson from the beginning? Your progress will be reset.")) {
         currentSignIndex = 0;
@@ -320,12 +278,12 @@ async function completeLesson() {
       });
   }
 
-   // 🔥 Clear progress for this lesson (since it's completed)
+   // Clear progress for this lesson (since it's completed)
   let lessonProgress = JSON.parse(localStorage.getItem("lessonProgress") || "{}");
   delete lessonProgress[lessonId];
   localStorage.setItem("lessonProgress", JSON.stringify(lessonProgress));
 
-  // 🔥 Save to Firestore if available
+  // Save to Firestore if available
   if (userId && !isGuest && typeof saveUserProgress !== 'undefined') {
       await saveUserProgress(userId, {
           completedLessons: completed,

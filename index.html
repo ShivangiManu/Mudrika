@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 
-  <!-- 🔥 FIREBASE SCRIPTS 🔥 -->
+  <!-- FIREBASE SCRIPTS -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
@@ -17,7 +17,6 @@
   <script src="js/auth.js"></script>
   
   <style>
-    /* Additional styles for better UI */
     .continue-btn {
       transition: all 0.3s ease;
     }
@@ -38,7 +37,6 @@
       animation: fadeIn 0.6s ease-out;
     }
     
-    /* ========== NEW STYLES FOR CLICKABLE USERNAME ========== */
     .user-profile-link {
       color: white;
       text-decoration: none;
@@ -57,7 +55,7 @@
       cursor: default;
       pointer-events: none;
     }
-    /* ===================================================== */
+
   </style>
 </head>
 <body>
@@ -85,13 +83,9 @@
     <a href="progress.html" class="nav-btn">Progress</a>
     <a href="videos.html" id="videosBtn" class="nav-btn">Lectures</a>
     
-    <!-- ========== MODIFIED: USERNAME NOW CLICKABLE ========== -->
-    <!-- OLD CODE: <span id="userDisplay" style="color:white; margin-right:5px;"></span> -->
-    <!-- NEW CODE: Clickable link to profile page -->
     <a href="profile.html" id="userProfileLink" class="user-profile-link">
       <span id="userDisplay"></span>
     </a>
-    <!-- ==================================================== -->
     
     <a href="login.html" id="loginLogoutBtn" class="nav-btn">Login</a>
     <a href="signup.html" id="signupBtn" class="nav-btn">Sign Up</a>
@@ -165,18 +159,6 @@
 <!-- LESSON CARDS SECTION -->
 <section class="lessons" id="lessonContainer"></section>
 
-<!-- INTRO VIDEO SECTION 
-<section style="text-align:center; padding:60px; background:#FFF9F2;">
-  <h2 style="font-size: 2rem;">Introduction to Mudrika</h2>
-  <div style="margin-top: 30px;">
-    <video controls width="60%" style="border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
-      <source src="assets/videos/intro.mp4" type="video/mp4">
-      Your browser does not support video.
-    </video>
-  </div>
-</section>
--->
-
 <!-- FOOTER -->
 <footer style="background: linear-gradient(to right, #C65A3A, #F2B36D); color: white; text-align: center; padding: 30px; margin-top: 50px;">
   <p style="margin: 0;">© 2024 Mudrika - Learn Indian Sign Language</p>
@@ -191,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log("Index page loaded");
     
     const userDisplay = document.getElementById('userDisplay');
-    const userProfileLink = document.getElementById('userProfileLink'); // ========== NEW ==========
+    const userProfileLink = document.getElementById('userProfileLink'); 
     const loginLogoutBtn = document.getElementById('loginLogoutBtn');
     const signupBtn = document.getElementById('signupBtn');
     const continueBtn = document.getElementById('continueBtn');
@@ -267,7 +249,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     userProfileLink.style.opacity = "0.7";
                   }
                 }
-                // =====================================================================
+          
                 
                 if (loginLogoutBtn) {
                     loginLogoutBtn.innerHTML = 'Login';

@@ -5,19 +5,18 @@
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
   
-  <!-- 🔥 FIREBASE SCRIPTS - MUST BE IN THIS ORDER 🔥 -->
   <!-- 1. Firebase Core (the main library) -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <!-- 2. Firebase Authentication (for user login) -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-  <!-- 3. Your Firebase configuration (connects to YOUR project) -->
+  <!-- 3. Your Firebase configuration (connects to project) -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
   <script src="js/firebase-config.js"></script>
 
 </head>
 <body>
 
-<!-- ✅ BACK TO HOME LINK -->
+<!-- BACK TO HOME LINK -->
 <a href="index.html" style="
   position:absolute;
   top:20px;
@@ -52,15 +51,6 @@
     align-items:center;
   ">
     <h2>Create your <span class="title">Mudrika</span> Account</h2>
-    
-    <!--
-    <input type="text" placeholder="Username">
-    <input type="password" placeholder="Password">
-
-    <button onclick="signup()">Sign Up</button>
-    -->
-
-    <!-- IMPORTANT: Added IDs to inputs -->
     
     <input type="text" id="signup-username" placeholder="Username" style="width:80%; max-width:300px; margin:10px 0; padding:10px; border-radius:8px; border:1px solid #D8BFA8;">
     <input type="email" id="signup-email" placeholder="Email Address" style="width:80%; max-width:300px; margin:10px 0; padding:10px; border-radius:8px; border:1px solid #D8BFA8;">
