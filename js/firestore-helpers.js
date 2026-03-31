@@ -150,3 +150,59 @@ async function saveLessonCompletion(userId, lessonId, xpEarned) {
         return false;
     }
 }
+
+// Save user profile data to Firestore
+async function saveUserProfileData(userId, profileData) {
+    if (!userId || userId === 'guest') {
+        console.log("Guest user - not saving profile to Firestore");
+        return false;
+    }
+    
+    try {
+        if (typeof db === 'undefined') {
+            console.warn("Firestore not available - saving to localStorage only");
+            return false;
+        }
+
+        const userRef = db.collection('users').doc(userId);
+        await userRef.set({
+            profile: profileData,
+            lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true });
+        
+        console.log("Profile data saved to Firestore for user:", userId);
+        return true;
+    } catch (error) {
+        console.error("Error saving profile to Firestore:", error);
+        return false;
+    }
+}
+
+// Load user profile data from Firestore
+async function loadUserProfileData(userId) {
+    if (!userId || userId === 'guest') {
+        console.log("Guest user - returning empty profile");
+        return {};
+    }
+    
+    try {
+        if (typeof db === 'undefined') {
+            console.warn("Firestore not available");
+            return {};
+        }
+
+        const userRef = db.collection('users').doc(userId);
+        const doc = await userRef.get();
+        
+        if (doc.exists && doc.data().profile) {
+            console.log("Profile data loaded from Firestore for user:", userId);
+            return doc.data().profile;
+        } else {
+            console.log("No existing profile data for user:", userId);
+            return {};
+        }
+    } catch (error) {
+        console.error("Error loading profile from Firestore:", error);
+        return {};
+    }
+}

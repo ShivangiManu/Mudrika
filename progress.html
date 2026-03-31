@@ -4,6 +4,34 @@
   <meta charset="UTF-8">
   <title>Mudrika - Progress</title>
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Styles for clickable username */
+    .user-profile-link {
+      color: white;
+      text-decoration: none;
+      margin-right: 5px;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .user-profile-link:hover {
+      transform: translateY(-2px);
+      text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      text-decoration: underline;
+    }
+    .user-profile-link.guest-mode {
+      opacity: 0.7;
+      cursor: not-allowed;
+      text-decoration: none;
+    }
+    .user-profile-link.guest-mode:hover {
+      transform: none;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
 
@@ -12,7 +40,10 @@
     <div>
       <a href="index.html" class="nav-btn">Home</a>
       <a href="videos.html" class="nav-btn">Lectures</a>
-      <span id="userDisplay" style="color:white; margin-right:10px;"></span>
+      <!-- CLICKABLE USERNAME LINK -->
+      <a href="#" id="userProfileLink" class="user-profile-link">
+        <span id="userDisplay" style="color:white; margin-right:10px;"></span>
+      </a>
     </div>
   </nav>
 
@@ -21,10 +52,9 @@
     <div id="progressContainer"></div>
   </section>
 
-    <!-- Firebase SDKs -->
+  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-  <!-- 🔥 ADD FIRESTORE SDK 🔥 -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
   <script src="js/firebase-config.js"></script>
   <script src="js/auth.js"></script>
@@ -35,14 +65,43 @@
   // User display and logout handling
   document.addEventListener('DOMContentLoaded', function() {
       const userDisplay = document.getElementById('userDisplay');
+      const userProfileLink = document.getElementById('userProfileLink');
       const loginLogoutBtn = document.getElementById('loginLogoutBtn');
       const signupBtn = document.getElementById('signupBtn');
+      
+      // Function to update profile link based on user state
+      function updateProfileLink(user, isGuest) {
+        if (!userProfileLink) return;
+        
+        if (user) {
+          userProfileLink.href = "profile.html";
+          userProfileLink.classList.remove('guest-mode');
+          userProfileLink.style.pointerEvents = "auto";
+          userProfileLink.style.opacity = "1";
+          userProfileLink.style.cursor = "pointer";
+        } else if (isGuest) {
+          userProfileLink.href = "javascript:void(0);";
+          userProfileLink.classList.add('guest-mode');
+          userProfileLink.style.pointerEvents = "none";
+          userProfileLink.style.opacity = "0.7";
+          userProfileLink.style.cursor = "not-allowed";
+          userProfileLink.title = "Please login to access profile";
+        } else {
+          userProfileLink.href = "javascript:void(0);";
+          userProfileLink.classList.add('guest-mode');
+          userProfileLink.style.pointerEvents = "none";
+          userProfileLink.style.opacity = "0.7";
+          userProfileLink.style.cursor = "not-allowed";
+          userProfileLink.title = "Please login to access profile";
+        }
+      }
       
       if (typeof auth !== 'undefined') {
           auth.onAuthStateChanged(function(user) {
               if (user) {
                   const username = localStorage.getItem('mudrika_username') || user.email.split('@')[0];
                   if (userDisplay) userDisplay.innerHTML = username;
+                  updateProfileLink(user, false);
                   if (loginLogoutBtn) {
                       loginLogoutBtn.innerHTML = 'Logout';
                       loginLogoutBtn.href = '#';
@@ -54,7 +113,9 @@
                   if (signupBtn) signupBtn.style.display = 'none';
               } else {
                   const guestName = localStorage.getItem('mudrika_username');
-                  if (userDisplay) userDisplay.innerHTML = guestName === 'Guest User' ? 'Guest' : '';
+                  const isGuest = (guestName === 'Guest User');
+                  if (userDisplay) userDisplay.innerHTML = isGuest ? 'Guest' : '';
+                  updateProfileLink(null, isGuest);
                   if (loginLogoutBtn) {
                       loginLogoutBtn.innerHTML = 'Login';
                       loginLogoutBtn.href = 'login.html';
@@ -63,6 +124,22 @@
                   if (signupBtn) signupBtn.style.display = 'inline-block';
               }
           });
+      }
+      
+      // Add click handler for profile link
+      if (userProfileLink) {
+        userProfileLink.addEventListener('click', function(e) {
+          const href = userProfileLink.getAttribute('href');
+          if (href === 'javascript:void(0);' || href === '#') {
+            e.preventDefault();
+            const isGuest = localStorage.getItem('mudrika_username') === 'Guest User';
+            if (isGuest || !auth.currentUser) {
+              alert('Please login to access your profile page.');
+            }
+            return false;
+          }
+          return true;
+        });
       }
   });
   </script>
